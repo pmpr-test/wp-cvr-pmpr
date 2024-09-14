@@ -1,0 +1,32 @@
+<button type="button" class="{{ class|esc_attr }}" data-toggle="modal"
+        data-target="#remove_product_modal_{{ product }}">
+    {{ icon|raw }}
+    {{ button_title|raw }}
+</button>
+
+<div class="modal fade" id="remove_product_modal_{{ product }}" tabindex="-1" role="dialog"
+     aria-labelledby="remove_product_modal_label_{{ product }}" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="remove_product_modal_label_{{ product }}">{{ title|raw }}</h5>
+                <a href="#" class="close card-link" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="modal-body text-left font-17">{{ content|raw }}</div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-outline-secondary px-5"
+                   data-dismiss="modal">{{ close_text|raw }}</a>
+                <span class="product-remove">
+                    <a {{ remove_button_attrs|parse_attrs|raw }}
+                            data-dismiss="modal"
+                            aria-label="{{ remove_button_title|esc_attr }}">
+                        {{ remove_button_title|raw }}
+                    </a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+

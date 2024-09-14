@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="col-12 col-lg-5 mb-5 my-lg-auto">
+        {% if right_image is not empty %}
+            {{ wp_get_attachment_image(right_image, [490, 410], {class: 'd-block mx-auto w-100'})|raw }}
+        {% endif %}
+    </div>
+    <div class="col-12 col-lg-7">
+        {% include get_template('./title_and_description', _self) with {
+            is_center: 0,
+        } %}
+        {% if list is not empty %}
+            <ul class="list-group list-group-flush my-4">
+                {% for item in list %}
+                    {% if item.text is not empty and item.icon is not empty %}
+                        <li class="list-group-item border-0 py-1 px-0 d-flex bg-transparent">
+                            {{ render_icon(item.icon, {class: 'icon-md my-auto mr-2'}) }}
+                            <span>{{ item.text|raw }}</span>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</div>

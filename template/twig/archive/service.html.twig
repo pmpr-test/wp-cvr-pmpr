@@ -1,0 +1,10 @@
+{% extends get_template('base', _self) %}
+
+{% block body %}
+    {% embed get_template('../common/main', _self) %}
+        {% block content %}
+            {{ do_action('service_loop') }}
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+

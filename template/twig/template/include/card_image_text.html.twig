@@ -1,0 +1,26 @@
+{% extends get_template('base', _self) %}
+
+{% block content %}
+    {% set has_parent = has_parent|default(1) %}
+    {% if has_parent %}
+        {% set columns = "col-12 " ~ column|default('col-md-4') %}
+        <div class="{{ columns|esc_attr }} {{ card_bottom_margin(loop, columns, margin_bottom|default(6)) }}">
+    {% endif %}
+    <a href="" class="{{ card_class }}">
+        <div class="card-body text-center {{ card_body_class|default('') }}">
+            <div class="d-inline-block mx-auto mb-4 {{ image_container_class|default('image-circle-lg') }}">
+                {{ get_icon(icon, {
+                    class: image_class|default('avatar-img rounded-circle'),
+                }) }}
+            </div>
+            {{ render_if_has_content(heading_element, {class: 'h6'}, render_post_data('title', item)) }}
+            {% set description = render_post_data('desc', item) %}
+            {% if description is not empty and hasDescription|default(1) %}
+                <p class="text-gray-700 limit-line limit-line-3 {{ description_class|default('') }}">{{ description|raw }}</p>
+            {% endif %}
+        </div>
+    </a>
+    {% if has_parent %}
+        </div>
+    {% endif %}
+{% endblock %}

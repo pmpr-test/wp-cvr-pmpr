@@ -1,0 +1,13 @@
+{% include get_template('./title_and_description', _self) %}
+{% embed get_cover_template('common/carousel/swiper/six_column') with {
+    carousels: items,
+    container_class: 'mt-5',
+    arrows: 0
+} %}
+    {% block carousel %}
+        <div class="carousel-item px-3">
+            {{ wp_get_attachment_image(carousel.image, [140, 140], {class: 'd-block mx-auto mb-3'})|raw }}
+            <div class="text-center lh-sm">{{ carousel.title|raw }}</div>
+        </div>
+    {% endblock %}
+{% endembed %}

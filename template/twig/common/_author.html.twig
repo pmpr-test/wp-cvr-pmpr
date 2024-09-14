@@ -1,0 +1,13 @@
+{% set url = {{ render_user_data('url', item) }} %}
+{% if url is not empty %}
+    <a href="{{ url|esc_attr }}" class="text-decoration-none"
+       aria-label="{{ __('Avatar', domain)|esc_attr }}">
+        {{ render_user_data('avatar', item, {
+            class: 'avatar-sm',
+            size: 29,
+        })|raw }}
+        <span class="ml-2">
+            {{ render_user_data('name', item)|raw }}
+        </span>
+    </a>
+{% endif %}

@@ -1,0 +1,14 @@
+{% set has_meta = has_meta|default(0) %}
+{% set nofollow = nofollow|default(0) %}
+{% set target = target|default('_blank') %}
+
+{% if has_meta %}
+    <div class="mt-auto card-footer z-index-2 bg-transparent{% if has_border|default(1) %} border-top{% else %} border-top-0{% endif %}">
+        {% block content %}
+            <div class="d-flex justify-content-between">
+                {% include get_template('meta', _self) %}
+            </div>
+        {% endblock %}
+    </div>
+{% endif %}
+

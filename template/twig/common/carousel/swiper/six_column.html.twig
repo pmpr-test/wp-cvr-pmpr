@@ -1,0 +1,29 @@
+{% set prev_class = 'ml-n8' %}
+{% set next_class = 'mr-n8' %}
+{% set arrows_class = 'd-none d-md-flex justify-content-between centered-absolute w-100' %}
+{% set carousel_config = {
+    loop: true,
+    speed: 1000,
+    autoplay: {
+        delay: 8000
+    },
+    centeredSlides: true,
+    slidesPerView: 1,
+    pagination: false,
+    breakpoints: {
+        1200: {
+            slidesPerView: 6,
+        },
+        1000: {
+            slidesPerView: 5,
+        }
+        800: {
+            slidesPerView: 4,
+        }
+        768: {
+            slidesPerView: 3,
+        }
+    },
+} %}
+{% extends get_template('carousel', _self) %}
+

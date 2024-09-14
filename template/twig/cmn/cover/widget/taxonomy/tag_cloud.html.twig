@@ -1,0 +1,20 @@
+{% if items is defined and items is not empty %}
+    <div class="mb-5">
+        {% if title is defined and title is not empty %}
+            <h2 class="h5 border-bottom-2 border-gray-400">{{ title|raw }}</h2>
+        {% endif %}
+        <div class="my-auto">
+            {% for item in items %}
+                <a href="{{ get_category_link(item)|raw }}" rel="tag"
+                   aria-label="{{ item.name|esc_attr }}"
+                   class="btn btn-sm btn-outline-secondary ml-1 my-1 py-1 px-2">
+                    {{ item.name|raw }}
+                    {% if show_count %}
+                        <span class="badge badge-pill badge-secondary my-auto font-14 lh-xs">{{ item.count|short_number|number|raw }}</span>
+                    {% endif %}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}
+

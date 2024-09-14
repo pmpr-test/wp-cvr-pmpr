@@ -1,0 +1,18 @@
+<div class="h4 pt-4 mb-0">
+    <span class="ml-1 text-primary">
+        {{ count|raw }}
+    </span>
+    {{ title|raw }}
+</div>
+{% if not has_comment %}
+    <p class="m-0">{{ empty_message|raw }}</p>
+{% else %}
+    <div class="my-5">
+        <ul id="comment_list" class="comments-list list-group list-group-flush p-0">
+            {{ comments|raw }}
+        </ul>
+        <div class="d-flex justify-content-center">
+            {{ pagination|raw }}
+        </div>
+    </div>
+{% endif %}

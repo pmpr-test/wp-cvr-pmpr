@@ -1,0 +1,17 @@
+{% if items is not empty %}
+    {% if title is defined and title is not empty %}
+        <h2 class="h5 border-bottom-2 border-gray-400">{{ title|raw }}</h2>
+    {% endif %}
+    <ul class="list-group list-group-flush font-14">
+        {% for item in items %}
+            <li class="list-group-item border-0 p-0 bg-transparent{% if not loop.last %} mb-1{% endif %}">
+                {% set item_title = render_post_data('title', item) %}
+                <a href="{{ get_permalink(item)|esc_attr }}" rel="nofollow"
+                   class="text-decoration-none text-gray-800" aria-label="{{ item_title|esc_attr }}">
+                    {{ item_title|raw }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+

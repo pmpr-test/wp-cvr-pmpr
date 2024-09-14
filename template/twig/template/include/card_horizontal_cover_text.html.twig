@@ -1,0 +1,30 @@
+{% extends get_template('base', _self) %}
+{% block content %}
+    {% set is_left = is_left|default(1) %}
+    {% if has_grid is defined and has_grid %}
+        <div class="col-12 {{ grid_class|esc_attr }}">
+    {% endif %}
+
+    {% set img_url = render_post_data('image_url', item, {
+        size: main_image_size|default('730x300')
+    }) %}
+    <div class="{{ card_class ?? '' }} card-row bg-cover z-index-1 overlay overlay-50 overlay-dark text-white"
+         style="background-image: url({{ img_url|esc_attr }})">
+        <div class="card-body h-100 z-index-2">
+            {% set title = render_post_data('title', item) %}
+            {% if title is not empty %}
+                <a class="card-link text-white" href="{{ render_post_data('permalink', item)|raw }}">
+                    <h3 class="h4 limit-line max-line-2">{{ title|raw }}</h3>
+                </a>
+            {% endif %}
+
+            {% set description = render_post_data('desc', item) %}
+            {% if description is not empty %}
+                <p class="mb-0 text-white limit-line max-line-4">{{ description|raw }}</p>
+            {% endif %}
+        </div>
+    </div>
+    {% if has_grid is defined and has_grid %}
+        </div>
+    {% endif %}
+{% endblock %}

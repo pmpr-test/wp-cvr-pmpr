@@ -1,0 +1,28 @@
+{% set content %}
+    {{ do_action('woocommerce_shop_top_bar_start') }}
+    {% if views is defined
+        and views is not empty %}
+        <div class="d-flex mt-2 my-md-auto justify-content-end">
+            {{ do_action('woocommerce_shop_top_bar') }}
+            <div class="list-view d-flex mr-2">
+                {% for item in views %}
+                    <button class="btn p-0 change-view card-link ml-2 shadow-none"
+                            aria-label="{{ item.title|esc_attr }}" data-name="{{ item.name|esc_attr }}">
+                        {{ get_icon(item.icon, {
+                            class: 'icon-lg my-auto icon-' ~ (item|call('isEnable') ? 'primary enable' : 'gray-500')
+                        })|raw }}
+                    </button>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    {{ do_action('woocommerce_shop_top_bar_end') }}
+{% endset %}
+
+{% if content|trim is not empty %}
+    <div class="card mb-5">
+        <div class="card-body p-3 d-flex justify-content-between flex-column flex-md-row">
+            {{ content|raw }}
+        </div>
+    </div>
+{% endif %}

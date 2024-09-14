@@ -1,0 +1,12 @@
+{% if jumbotron is defined and jumbotron is not empty %}
+    <div class="py-5 py-md-8 bg-jumbotron">
+        <div class="container h2 text-white text-center">
+            {% if use_ht|default(0) %}
+                <h1 class="h2">{{ jumbotron|raw }}</h1>
+            {% else %}
+                {{ jumbotron|raw }}
+            {% endif %}
+        </div>
+    </div>
+    {% include get_template('../search/jumbotron', _self) %}
+{% endif %}

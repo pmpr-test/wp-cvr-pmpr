@@ -1,0 +1,28 @@
+{% if carousels %}
+    {% set carousel_config = carousel_config|default({})|merge({rtl: true, direction: 'rtl', paginationDirection: 'rtl'}) %}
+    <div class="splide"{% if carousel_config is defined %} data-carousel="{{ carousel_config|json_encode|esc_attr }}"{% endif %}>
+
+        {% if carousel_config.arrows is not defined
+            or carousel_config.arrows %}
+            {% block carousel_arrow %}
+                {% include get_template('arrows', _self) with {
+                    btn_class: arrow_class,
+                    class: arrows_class,
+                    icon: arrow_icon,
+                } %}
+            {% endblock %}
+        {% endif %}
+
+        {% block before_slides %}{% endblock %}
+        <div class="splide__track {{ container_class|esc_attr }}">
+            <ul class="splide__list">
+                {% for key, carousel in carousels %}
+                    <li class="splide__slide">
+                        {% block carousel %}{% endblock %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% block after_slides %}{% endblock %}
+    </div>
+{% endif %}

@@ -1,0 +1,6 @@
+{% if actions is not empty %}
+    {% for action in actions %}
+        <a href="{{ action.link }}" class="btn btn-primary px-5 mr-2"{% if new_tab %} target="_blank"{% endif %}>{{ action.text|raw }}</a>
+    {% endfor %}
+{% endif %}
+

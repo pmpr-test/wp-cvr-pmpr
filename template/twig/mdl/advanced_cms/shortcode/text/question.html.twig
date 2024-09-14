@@ -1,0 +1,11 @@
+{% embed get_template('borderbox', _self) with {
+    text: question
+} %}
+    {% block after_body %}
+        {% if answer is defined and answer is not empty %}
+            <div class="title h5 my-2">{{ anser_title|raw }}</div>
+            <div class="body">{{ answer|raw }}</div>
+        {% endif %}
+    {% endblock %}
+{% endembed %}
+

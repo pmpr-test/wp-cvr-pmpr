@@ -1,0 +1,48 @@
+{{ do_action('start_render_header') }}
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>{{ wp_head() }}</head>
+<body {{ body_class(body_class|default('')) }} id="top">
+
+{% if pmpr_apply_filters('has_header', has_header|default(1)) %}
+<header id="site_header">
+    {{ pmpr_do_action('before_header') }}
+    {% set can_render_breadcrumb = pmpr_apply_filters('breadcrumb_can_render', 1) %}
+    <nav class="navbar navbar-expand-md navbar-light bg-light py-3 main-nav{% if not can_render_breadcrumb %} shadow-sm{% endif %}">
+        <div class="container position-relative">
+
+            {% include get_cover_template('common/logo') with {
+                logo_type: 'header',
+                logo_size: [165, 50],
+                container_class: 'navbar-brand d-flex py-0'
+            } %}
+
+            {% if has_nav_menu('main-menu') %}
+                <button class="navbar-toggler svg-icon icon-menu icon-before-secondary icon-before-2xs lazyload"
+                        data-class="icon-menu" type="button" data-toggle="collapse" data-target=".nav-bar"
+                        aria-controls="navbar" aria-expanded="true" aria-label="{{ __('Toggle navigation', domain) }}">
+                    {{ get_icon('fasm/6/set/bars', {}, 1)|raw }}
+                </button>
+                <div class="collapse navbar-collapse nav-bar overflow-auto" id="navbar">
+                    {{ wp_nav_menu({theme_location:'main-menu'}) }}
+                    {{ pmpr_do_action('pmpr_header_left_buttons') }}
+                </div>
+                {{ pmpr_do_action('pmpr_header_left_dropdowns') }}
+            {% endif %}
+        </div>
+    </nav>
+
+    {% set breadcrumb = pmpr_apply_filters('breadcrumb_get_html', '') %}
+    {% if breadcrumb %}
+        <nav class="bg-gray-300">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 overflow-auto">
+                        {{ breadcrumb|raw }}
+                    </div>
+                </div>
+            </div>
+        </nav>
+    {% endif %}
+</header>
+{% endif %}

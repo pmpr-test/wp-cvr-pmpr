@@ -1,0 +1,11 @@
+{% if extras is not empty %}
+    <div class="row gutter-2">
+        {% set columns = 'col-12 col-md-6 col-lg-3' %}
+        {% for extra in extras %}
+            <div class="{{ columns|esc_attr }}{{ margin_bottom(loop, columns, 5)|esc_attr }} d-flex">
+                {% include get_template('./extra', _self) with {extra: extra} %}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+

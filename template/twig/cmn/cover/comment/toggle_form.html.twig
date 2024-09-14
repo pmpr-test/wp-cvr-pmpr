@@ -1,0 +1,5 @@
+<button class="btn btn-outline-primary show-form btn-block my-3{% if collapsible_onload %} collapsed{% endif %}"
+        data-toggle="collapse" data-target="{{ target_form|esc_attr }}">
+    {{ show_form_text|raw }}
+</button>
+

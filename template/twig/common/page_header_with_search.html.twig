@@ -1,0 +1,11 @@
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12 col-md-8 mb-5 mb-md-0">
+            {% include get_template('page_header', _self) %}
+        </div>
+        <div class="col-12 col-md-4">
+            {{ do_action('render_search_form') }}
+        </div>
+    </div>
+</div>
+

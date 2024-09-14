@@ -1,0 +1,16 @@
+<section class="bg-light">
+    <div class="container">
+        {{ content|raw }}
+        <div class="row my-8">
+            <div class="col-12 col-lg-6">{{ form|raw }}</div>
+            <div class="col-12 col-lg-6 my-8 my-lg-4">
+                {% include get_cover_template('common/information/items') with {
+                    icon_size: 'lg',
+                    icon_color: 'primary',
+                    text_color: 'gray-800 font-20',
+                } %}
+            </div>
+        </div>
+    </div>
+    {{ map|raw }}
+</section>

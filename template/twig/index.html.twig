@@ -1,0 +1,17 @@
+{% extends get_template('container', _self) %}
+
+{% block before_container %}
+<main>
+    {% include get_template('./common/jumbotron', _self) %}
+{% endblock %}
+
+{% block container %}
+    {% include get_template('./common/loop', _self, _current_template_name) with {
+        column: 3
+    } %}
+{% endblock %}
+
+{% block after_container %}
+</main>
+{% endblock %}
+

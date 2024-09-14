@@ -1,0 +1,7 @@
+<div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-6">
+        {{ render_if_has_content('div', {class: 'overflow-auto border border-gray-300 mx-h330px p-3 mb-3'}, wpautop(terms_of_use)) }}
+        {{ fields|raw }}
+    </div>
+</div>
+

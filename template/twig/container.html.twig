@@ -1,0 +1,10 @@
+{% extends get_template('base', _self) %}
+
+{% block body %}
+    {% block before_container %}{% endblock %}
+    <div class="container my-5">
+        {% block container %}{% endblock %}
+    </div>
+    {{ dynamic_sidebar('after-container') }}
+    {% block after_container %}{% endblock %}
+{% endblock %}

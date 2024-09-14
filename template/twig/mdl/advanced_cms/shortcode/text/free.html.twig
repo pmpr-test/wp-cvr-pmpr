@@ -1,0 +1,7 @@
+{% set container_class = 'border-0' %}
+{% embed get_template('../borderbox', _self) %}
+    {% block body %}
+        <div class="text-center">{{ text|raw }}</div>
+    {% endblock %}
+{% endembed %}
+

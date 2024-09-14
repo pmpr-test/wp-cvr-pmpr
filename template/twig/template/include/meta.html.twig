@@ -1,0 +1,14 @@
+<a class="d-flex justify-content-between hover-dark" rel="nofollow"
+   href="{{ render_author_data('url', item)|raw }}">
+    {{ render_author_data('avatar', item, {
+        class: 'avatar-sm avatar-img rounded-circle'
+    })|raw }}
+    <p class="h6 text-gray-700 mr-2 my-auto">
+        {{ render_author_data('name', item)|raw }}
+    </p>
+</a>
+<time class="text-gray-700 mr-auto my-auto"
+      datetime="{{ render_post_data('date', item, {locale: 'en', format: 'Y-m-d'}) }}">
+    {{ render_post_data('date', item)|raw }}
+</time>
+

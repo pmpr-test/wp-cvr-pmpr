@@ -1,0 +1,44 @@
+<div class="card card-row bg-gray-100 border-top-0 border-bottom-0 border-right-0 left-bordered-box border-primary">
+    <div class="card-body py-3">
+        <div class="pt-2 border-bottom border-gray-300">
+
+            {% if title is not empty %}
+                <div class="h5 mb-4 text-gray-800">{{ title|raw }}</div>
+            {% endif %}
+
+            {% if description is not empty %}
+                <p class="card-text text-secondary mb-2 lh-md">{{ description|raw }}</p>
+            {% endif %}
+        </div>
+        <ul class="list-group list-group-flush bg-transparent">
+            {% for meta_item in metadata %}
+                <li class="list-group-item border-gray-300 bg-transparent px-0">
+                    <div class="row">
+                        {% for item in meta_item.items %}
+                            <div class="col-12 col-md-3 my-auto">
+                                <div class="card border-0 bg-transparent">
+                                    <div class="card-body p-0">
+                                        <div class="d-flex">
+                                            {{ render_icon(item.icon, {class: 'icon-info icon-3x my-auto'}) }}
+                                            <div class="ml-3 lh-sm my-1 py-1">
+                                                <span class="font-14 text-info">{{ item.title|raw }}</span>
+                                                <div class="font-15 text-secondary h6 mb-0{% if item.key == 'size' %} text-left direction-ltr{% endif %}">{{ item.value|raw }}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <div class="col-12 col-md-3 align-self-center">
+                            <form action="{{ meta_item.link|esc_attr }}" method="post">
+                                <input type="submit" class="btn btn-outline-primary btn-block"
+                                       value="{{ button_title|raw }}"/>
+                            </form>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+

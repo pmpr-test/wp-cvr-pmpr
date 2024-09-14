@@ -1,0 +1,384 @@
+{% extends get_template('../base', _self) %}
+
+{% block body %}
+
+    {% embed get_template('../common/front_section', _self) with {
+        data: get_cover_option('top_section', {}),
+    } %}
+        {% block content %}
+
+            <div class="row">
+                <div class="col-12 col-lg-8 mb-5 mb-lg-0 order-lg-2">
+                    {% set slider = data.slider %}
+                    {% if slider is not empty %}
+                        {% embed get_template('../common/carousel/swiper/single_column', _self) with {
+                            carousels: slider,
+                            carousel_id: 'front_top_slider',
+                            autoplay_dealy: 4000,
+                            container_class: 'frontend-carousel'
+                        } %}
+                            {% block carousel %}
+                                {% embed get_template('../common/media/background', _self) with {
+                                    image_url: wp_get_attachment_image_url(carousel.image, 'large'),
+                                    container_class: 'carousel-item h-100 position-relative bg-cover',
+                                } %}
+                                    {% block body %}
+                                        <div class="position-absolute bottom-0 w-100 overlay overlay-dark overlay-50 z-index-1">
+                                            <div class="row no-gutters p-3 z-index-2">
+                                                <div class="col-12 col-lg-9">
+                                                    <div class="h5 text-center text-lg-left text-white slide-title"
+                                                         data-limit="1">{{ carousel.title|raw }}</div>
+                                                    {% if carousel.description %}
+                                                        <div class="d-none d-lg-block">
+                                                            <p class="mb-0 fs-md lh-md text-white"
+                                                               data-limit="1">{{ carousel.description|raw }}</p>
+                                                        </div>
+                                                    {% endif %}
+                                                </div>
+                                                {% if carousel.permalink %}
+                                                    <div class="col-12 col-lg-3 mt-auto">
+                                                        <div class="d-flex justify-content-end">
+                                                            {% include get_template('../common/call_to_action', _self) with {
+                                                                size: 'md',
+                                                                title: carousel.title,
+                                                                text: data.action_text,
+                                                                permalink: carousel.permalink,
+                                                            } %}
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    {% endblock %}
+                                {% endembed %}
+                            {% endblock %}
+                        {% endembed %}
+                    {% endif %}
+                </div>
+                <div class="col-12 col-lg-4 mb-5 mb-lg-0 order-lg-1">
+                    {% set top_lists = data.top_list %}
+                    {% if top_lists is not empty %}
+                        <ul class="list-group">
+                            {% for post in top_lists %}
+                                <li class="list-group-item font-weight-bold">
+                                    {% include get_template('../common/call_to_action', _self) with {
+                                        button: 0,
+                                        attrs: {'data-limit': 1},
+                                        text: post.title,
+                                        permalink: post.permalink,
+                                    } %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+                <div class="col-12 mt-0 mt-lg-3 order-3">
+                    {% set bottom_list = data.bottom_list %}
+                    {% if bottom_list is not empty %}
+                        <div class="row">
+                            {% for item in bottom_list %}
+                                {% if item %}
+                                    <div class="col-12 col-lg-6 mb-5">
+                                        <div class="card">
+                                            <article class="card-body d-flex">
+                                                {{ wp_get_attachment_image(item.image, 'thumbnail')|raw }}
+                                                <div class="ml-4">
+                                                    <a href="{{ item.permalink|esc_attr }}"
+                                                       class="stretched-link card-link"
+                                                       aria-label="{{ item.title|esc_attr }}">
+                                                        <h3 class="h5 mb-2" data-limit="1">
+                                                            {{ item.title|raw }}
+                                                        </h3>
+                                                    </a>
+                                                    <div class="lh-sm text-justify no-margin font-15" data-limit="2">
+                                                        {{ wpautop(item.description)|raw }}
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+        {% endblock %}
+    {% endembed %}
+
+    {% embed get_template('../common/front_section', _self) with {
+        data: get_cover_option('products', {}),
+        section_class: 'py-8 bg-gray-100'
+    } %}
+        {% block content %}
+            {% embed get_template('../common/carousel/swiper/three_column', _self) with {
+                carousels: data.products
+            } %}
+                {% block carousel %}
+                    <div class="carousel-item position-relative">
+                        <div class="card border-0 mx-2">
+                            <article class="card-body">
+                                <h3 class="h6 mb-3" data-limit="1">{{ carousel.title|raw }}</h3>
+                                <div class="d-flex">
+                                    {{ wp_get_attachment_image(carousel.image, 'thumbnail')|raw }}
+                                    <div class="d-flex flex-column justify-content-between">
+                                        <div class="ml-3 lh-sm text-justify mb-4 font-13" data-limit="2">
+                                            {{ wpautop(carousel.description)|raw }}
+                                        </div>
+                                        <div class="d-flex justify-content-end">
+                                            {% include get_template('../common/call_to_action', _self) with {
+                                                py: 1,
+                                                px: 3,
+                                                size: 'sm',
+                                                title: carousel.title,
+                                                text: data.action_text,
+                                                permalink: carousel.permalink,
+                                            } %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                {% endblock %}
+            {% endembed %}
+        {% endblock %}
+    {% endembed %}
+
+    {% embed get_template('../common/front_section', _self) with {
+        data: get_cover_option('owner_and_teams', {}),
+    } %}
+        {% block content %}
+
+            <div class="row">
+                {% set owner = data.owner %}
+                {% if owner %}
+                    <div class="col-12 col-lg-6 mb-5 mb-lg-0">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12 col-lg-5 mb-5 mb-lg-0 d-flex flex-column justify-content-between">
+                                        <img src="{{ owner.image|esc_attr }}" width="200" height="200"
+                                             alt="Owner Avatar"
+                                             class="rounded-circle img-thumbnail img-fluid mx-auto mb-5">
+                                        {% if owner.permalink %}
+                                            <div class="text-center">
+                                                {% include get_template('../common/call_to_action', _self) with {
+                                                    text: owner.action_text,
+                                                    permalink: owner.permalink,
+                                                } %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-12 col-lg-7 text-center text-lg-left">
+                                        <div class="h4 mb-4">{{ owner.name|raw }}</div>
+                                        {% if owner.badges %}
+                                            <ul class="list-unstyled">
+                                                {% for badge in owner.badges %}
+                                                    <li{% if not loop.last %} class="mb-2"{% endif %}>
+                                                        {% if badge.permalink %}
+                                                            {% set attrs = {class: 'font-13 my-auto card-link', href: badge.permalink} %}
+                                                            {% set element = 'a' %}
+                                                        {% else %}
+                                                            {% set attrs = {class: 'font-13 my-auto'} %}
+                                                            {% set element = 'span' %}
+                                                        {% endif %}
+                                                        <div class="d-flex">
+                                                            {{ render_icon(badge.icon, {class: 'mr-2'}) }}
+                                                            {{ render_if_has_content(element, attrs, badge.title) }}
+                                                        </div>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="col-12 col-lg-6">
+                    <div class="teams d-flex flex-column flex-md-row h-100">
+                        <nav>
+                            <ul class="nav flex-column nav-tabs h-100"
+                                id="nav_teams" role="tablist">
+                                {% for team in data.teams %}
+                                    <li class="nav-item" role="tab">
+                                        <a href="#team_{{ team.key|esc_attr }}" data-toggle="tab"
+                                           class="text-nowrap mb-0 rounded-0 nav-link{% if loop.first %} active{% endif %}"
+                                           id="team_{{ team.key|esc_attr }}_tab">
+                                            {{ team.title|raw }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </nav>
+                        <div class="tab-content w-100">
+                            {% for team in data.teams %}
+                                <div class="p-4 tab-pane fade{% if loop.first %} show active{% endif %}"
+                                     role="tabpanel" id="team_{{ team.key|esc_attr }}">
+                                    <div class="card bg-gray-100">
+                                        <div class="p-4 d-flex">
+                                            <img src="{{ team.image|esc_attr }}" width="100" height="100"
+                                                 alt="Team Avatar" class="rounded-circle img-fluid img-thumbnail">
+                                            <div class="ml-3 my-auto">
+                                                {{ render_if_has_content('div', {class: 'h6'}, team.name) }}
+                                                {{ render_if_has_content('div', {class: 'font-13'}, team.job_title) }}
+                                                {{ render_if_has_content('div', {class: 'font-13'}, team.subtext) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-center my-3">
+                                        <span>{{ team.team_count|raw }}</span>
+                                        <span class="mx-2">|</span>
+                                        <span>{{ team.team_experience|raw }}</span>
+                                    </div>
+                                    {% if team.agreement %}
+                                        <hr class="my-2">
+                                        <div class="d-flex justify-content-between flex-column text-center">
+                                            <div>
+                                                {{ team.agreement.title|raw }}
+                                                {% include get_template('../common/call_to_action', _self) with {
+                                                    text: team.agreement.terms,
+                                                    button: 0,
+                                                    permalink: team.agreement.permalink,
+                                                } %}
+                                            </div>
+                                            <div class="mt-3">
+                                                {% include get_template('../common/call_to_action', _self) with {
+                                                    size: 'sm',
+                                                    text: team.agreement.submit_request,
+                                                    permalink: team.agreement.permalink,
+                                                } %}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        {% endblock %}
+    {% endembed %}
+
+    {% embed get_template('../common/front_section', _self) with {
+        data: get_cover_option('success_stories', {}, {
+            avatar_size: 80,
+            avatar_image_size: 'small',
+            avatar_attrs: {class: 'mx-auto rounded-circle mb-4'},
+        }),
+        section_class: 'py-8 bg-gray-100'
+    } %}
+        {% block content %}
+            {% embed get_template('../common/carousel/swiper/four_column', _self) with {
+                carousels: data.posts,
+            } %}
+                {% block carousel %}
+                    <div class="carousel-item position-relative">
+                        <div class="card mx-2">
+                            <div class="card-body d-flex justify-content-between flex-column text-center">
+
+                                {{ carousel.avatar|raw }}
+
+                                {{ carousel.text|raw }}
+
+                                {% include get_cover_template('./common/call_to_action') with {
+                                    size: 'sm',
+                                    text: data.action_text,
+                                    permalink: carousel.permalink,
+                                } %}
+                            </div>
+                        </div>
+                    </div>
+                {% endblock %}
+            {% endembed %}
+
+        {% endblock %}
+    {% endembed %}
+
+    {% embed get_template('../common/front_section', _self) with {
+        data: get_cover_option('blog', {}),
+    } %}
+        {% block content %}
+
+            {% if data.posts %}
+                <div class="row">
+                    {% for index, post in data.posts|slice(0, 1) %}
+                        <div class="col-12 col-lg-8 mb-5 mb-lg-0">
+                            {{ do_action('render_cards', post, {
+                                meta: meta ?? ['category'],
+                                class: '',
+                                index: index,
+                                has_grid: 0,
+                                layout: 'horizontal_cover_text',
+                                card_class: 'h-100',
+                                heading_class: 'font-14 limit-line max-line-1'
+                            }) }}
+                        </div>
+                    {% endfor %}
+                    <div class="col-12 col-lg-4">
+                        <ul class="list-group">
+                            {% for index, post in data.posts|slice(1, 7) %}
+                                <li class="list-group-item font-weight-bold">
+                                    {% include get_template('../common/call_to_action', _self) with {
+                                        button: 0,
+                                        attrs: {
+                                            'data-limit': 1
+                                        },
+                                        text: get_title(post),
+                                        permalink: get_permalink(post),
+                                    } %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if data.stats is not empty %}
+                <div class="d-flex justify-content-around flex-column flex-md-row my-5">{{ data.stats|raw }}</div>
+            {% endif %}
+
+            {% if data.action is not empty %}
+
+                <div class="d-flex justify-content-center my-5">
+                    {% include get_template('../common/call_to_action', _self) with {
+                        size: 'lg',
+                        text: data.action.title,
+                        permalink: data.action.permalink,
+                    } %}
+                </div>
+
+            {% endif %}
+
+        {% endblock %}
+    {% endembed %}
+
+    {% embed get_template('../common/front_section', _self) with {
+        data: get_cover_option('contact', {}),
+        section_class: 'py-8 bg-gray-100'
+    } %}
+        {% block content %}
+            <div class="row">
+                <div class="col-12 col-md-4 order-0 order-lg-2">
+                    {% if data.information is not empty %}
+                        {% include get_template('../common/information/items', _self) with {
+                            items: data.information,
+                            icon_size: 'md',
+                            icon_color: 'primary',
+                            text_color: 'dark h5',
+                        } %}
+                    {% endif %}
+                </div>
+                <div class="col-12 col-md-8 mb-5 mb-lg-0 order-1">
+                    {{ pmpr_do_action('contact_render_form', {}) }}
+                </div>
+            </div>
+        {% endblock %}
+    {% endembed %}
+
+{% endblock %}
+

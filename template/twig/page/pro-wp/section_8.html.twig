@@ -1,0 +1,54 @@
+{% include get_template('./title_and_description', _self) with {
+    centered: 1
+} %}
+
+{% embed get_cover_template('common/carousel/carousel') with {
+    arrows_class: 'd-flex justify-content-between position-absolute top-50 w-100 px-3',
+    carousels: items,
+    container_class: 'pro-wp-components',
+    carousel_config: {
+        dots: false,
+        speed: 2000,
+        autoplay: true,
+        infinite: true,
+        centerMode: true,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        autoplaySpeed: 8000,
+        centerPadding: '100px',
+        responsive: [
+            {
+                breakpoint: 1000,
+                settings: {
+                slidesToShow: 2,
+                slidesToScroll: 1
+            }
+            },
+            {
+                breakpoint: 768,
+                settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1
+            }
+            }
+        ],
+    }
+} %}
+    {% block carousel %}
+        <article class="carousel-item px-3">
+            <div class="card shadow-sm">
+                {{ wp_get_attachment_image(carousel.thumbnail, 'medium', {class: 'card-img-top img-fluid mx-auto'})|raw }}
+                <div class="card-body text-center">
+                    <h3 class="card-title h5">{{ carousel.title|raw }}</h3>
+                    <div class="card-text no-margin mb-2 font-14">{{ wpautop(carousel.excerpt)|raw }}</div>
+                    <a href="{{ carousel.permalink|esc_attr }}" target="_blank" class="btn btn-primary" aria-label="{{ button_text|esc_attr }}">{{ button_text|raw }}</a>
+                </div>
+            </div>
+        </article>
+    {% endblock %}
+{% endembed %}
+
+<div class="text-center mt-5">
+    {% include get_template('./actions', _self) %}
+</div>
+

@@ -1,0 +1,26 @@
+{% if items is defined and items is not empty %}
+    <table class="table w-100 bg-transparent {{ table_class }}">
+        <tbody>
+        {% for key, item in items %}
+
+            {% set icon = item|call('getIcon') %}
+            {% set title = item|call('getTitle') %}
+            <tr class="{{ tr_class|esc_attr }}{% if loop.last %} border-bottom-0{% endif %}">
+                {% if has_title and title is defined
+                    and title is not empty %}
+                    <th class="d-flex font-15 text-left border-0 {{ th_class|esc_attr }}">
+                        {{ title|raw }}
+                    </th>
+                    {% set td_class = td_class ~ ' text-right' %}
+                {% else %}
+                    {% set td_class = td_class ~ ' text-center' %}
+                    {% set has_title = 0 %}
+                {% endif %}
+                <td class="font-22 font-weight-bold text-gray-700 p-0 border-0 my-auto {{ td_class|esc_attr }}"{% if not has_title %} colspan="2" {% endif %}>
+                    {{ item|call('getValue')|raw }}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endif %}

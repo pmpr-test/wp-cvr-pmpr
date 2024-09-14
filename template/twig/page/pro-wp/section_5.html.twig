@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-12 col-lg-5 order-3 order-lg-1">
+        {% include get_template('./title_and_description', _self) %}
+        {% if technology is not empty %}
+            {{ render_if_has_content('h3', {class: 'h5 mb-3'}, technology.title) }}
+            {% for item in technology.items %}
+                {{ render_icon(item.icon, {class: 'icon-3x mb-4 d-inline-block mr-4'}) }}
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="col-12 col-lg-7 order-2 mb-5 mb-lg-0">
+        <div class="row">
+            {% set columns = 'col-12 col-lg-6' %}
+            {% for feature in features %}
+                <div class="{{ columns|esc_attr }}{{ margin_bottom(loop, columns, 5)|esc_attr }} position-relative">
+                    {{ render_icon(feature.icon, {class: 'p-4 icon-5x bg-gray-200 rounded-circle position-absolute'})|raw }}
+                    <div class="no-margin pl-11 d-table-cell">
+                        <h3 class="h5">{{ feature.title|raw }}</h3>
+                        <div class="font-14">{{ wpautop(feature.text)|raw }}</div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

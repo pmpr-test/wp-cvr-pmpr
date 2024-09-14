@@ -1,0 +1,16 @@
+{% if type is same as ('loader') %}
+    <div class="pr-spinner{% if overlay %} pr-overlay{% endif %}{% if color is not empty %} text-{{ color|esc_attr }}{% endif %}{% if show %} show{% endif %}{% if class is not empty %} {{ class|esc_attr }}{% endif %}">
+        <div class="spinner-format-1 d-flex centered-absolute">
+            <div class="spinner-item"></div>
+            <div class="spinner-item"></div>
+            <div class="spinner-item"></div>
+            <div class="spinner-item"></div>
+            <div class="spinner-item"></div>
+        </div>
+    </div>
+{% else %}
+    <span class="pr-spinner spinner-{{ type|esc_attr }} spinner-{{ type|esc_attr }}-{{ size|esc_attr }}{% if color is not empty %} text-{{ color|esc_attr }}{% endif %}{% if show %} show{% endif %}{% if class is not empty %} {{ class|esc_attr }}{% endif %}">
+        {{ render_if_has_content('span', {class: 'visually-hidden'}, text) }}
+    </span>
+{% endif %}
+

@@ -1,0 +1,52 @@
+<article class="plan selectable position-relative w-100" data-id="{{ plan.id|esc_attr }}">
+    {% set discount = woo_price_discount(plan.product) %}
+    {% if discount > 0 %}
+        <div class="ribbon ribbon-top-left ribbon-danger">
+            <span class="font-14 font-weight-bold">{{ discount_mask|format((discount ~ '%')|number)|raw }}</span>
+        </div>
+    {% endif %}
+    <div class="card min-h-425px border-1 border-gray-500">
+        <div class="card-header bg-gray-200 text-gray-700">
+            {{ render_if_has_content('h2', {class: 'text-center h5 m-0'}, plan.display_title) }}
+        </div>
+        <div class="card-body p-3">
+            <ul class="list-group">
+                {% for key, specification in plan.specifications %}
+                    <li class="list-group-item p-0 border-0 d-flex justify-content-between">
+                        <div class="d-flex font-15">
+                            {{ render_icon(specification.icon, {class: 'icon-md my-auto icon-gray mr-2'}) }}
+                            {{ specification.title|raw }}
+                        </div>
+                        <strong>{{ specification.value|raw }}</strong>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="card-body p-3 border-top-2 border-gray-300">
+            <div class="h6 text-center">{{ services_cost|raw }}</div>
+            <ul class="list-group">
+                {% for key, usage in plan.usages %}
+                    <li class="list-group-item p-0 border-0 d-flex justify-content-between">
+                        <div class="d-flex font-15">{{ usage.title|raw }}</div>
+                        <strong>{{ usage.value|raw }}</strong>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% if plan.features is not empty %}
+            <div class="card-body p-3 border-top-2 border-gray-300">
+                <ul class="list-group">
+                    {% for feature in plan.features %}
+                        {% if feature is not empty %}
+                            <li class="list-group-item border-0 p-0 text-center font-15">{{ feature|raw }}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        <div class="card-footer h5 mb-0 text-center bg-gray-200 text-gray-700">
+            {{ plan.price_html|raw }}
+        </div>
+    </div>
+</article>
+

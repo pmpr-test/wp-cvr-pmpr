@@ -1,0 +1,28 @@
+{% set has_link = link is defined and link is not empty %}
+
+<div class="left-bordered-box {{ shortcode_name|esc_attr }} {{ container_class }} mb-3 py-3 px-5">
+    {% if title is defined
+        and title is not empty %}
+        <div class="title h5 mb-2">{{ title|raw }}</div>
+    {% endif %}
+    <div class="body">
+
+        {% if is_post(link, 1) %}
+
+            {% set text = render_post_data('title', link) %}
+            {% set link = render_post_data('permalink', link) %}
+        {% endif %}
+        {% block body %}
+            {% if has_link %}
+
+                {% set attrs = { href: link, class: 'card-link', title: text} %}
+                <a {{ attrs|parse_attrs|raw }} aria-label="{{ text|esc_attr }}">{{ text|raw }}</a>
+            {% else %}
+
+                {{ text|raw }}
+            {% endif %}
+        {% endblock %}
+        {% block after_body %}{% endblock %}
+    </div>
+</div>
+

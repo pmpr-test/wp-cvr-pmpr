@@ -1,0 +1,60 @@
+{% extends get_cover_template('main') %}
+
+{% block main %}
+
+    {% set sections = {
+        opt_introduce: {},
+        opt_speed: {},
+        opt_why_us: {},
+        opt_specification: {},
+        opt_test_yourself: {},
+        opt_solution: {},
+        opt_success_story: {},
+        opt_our_test: {},
+        opt_peace_of_mind: {},
+        opt_requirement: {},
+        opt_how_start: {}
+    } %}
+
+    {% set rendered = 0 %}
+    {% set promotions = get_cover_option('opt_promotion', {}) %}
+
+    {% for section, config in sections %}
+
+        {% set options = get_cover_option(section, {}) %}
+        {% set promotion = promotions[loop.index] %}
+
+        {% if promotion is not empty
+            and promotion.position < 0 %}
+
+            {% include get_template('./promotion/' ~ promotion.template, _self) with promotion %}
+
+        {% endif %}
+
+        {% if options is not empty %}
+
+            <section class="pro-wp-section {% if options.bg_color is not empty %}bg-{{ options.bg_color|esc_attr }}{% endif %}{% if loop.index > 1 %} py-8{% endif %}"
+                     id="section_{{ section|esc_attr }}">
+                {% if options.has_container %}
+                    <div class="container">
+                {% endif %}
+                    {% include get_template('./opt/section_' ~ loop.index, _self) with options %}
+                {% if options.has_container %}
+                    </div>
+                {% endif %}
+            </section>
+            {% set rendered = rendered + 1 %}
+
+        {% endif %}
+
+        {% if promotion is not empty
+            and promotion.position > 0 %}
+
+            {% include get_template('./promotion/' ~ promotion.template, _self) with promotion %}
+
+        {% endif %}
+
+    {% endfor %}
+
+{% endblock %}
+

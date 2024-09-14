@@ -1,0 +1,35 @@
+{% include get_template('./title_and_description', _self) with {
+    is_center: 0
+} %}
+
+<table class="table table-striped mt-5 mb-0 bg-transparent">
+    <thead>
+    <tr>
+        <th class="invisible border-0"></th>
+        {% for vendor in vendors %}
+            <th class="font-weight-normal text-center border-0 py-1">
+                {{ wp_get_attachment_image(vendor.logo, [50, 50], {class: 'd-block mx-auto mb-1'})|raw }}
+                <span class="font-13">{{ vendor.name|raw }}</span>
+            </th>
+        {% endfor %}
+    </tr>
+    </thead>
+    <tbody>
+    {% for feature in features %}
+        <tr>
+            <td class="py-1 font-weight-bold">{{ feature.text|raw }}</td>
+            {% for vendor in vendors %}
+                <td class="text-center py-1">
+                    {% if items[vendor.key]['solution_' ~ feature.key] is same as('on') %}
+                        {{ render_icon(icon_on, {class: 'icon-lg icon-success mx-auto'}) }}
+                    {% else %}
+                        {{ render_icon(icon_off, {class: 'icon-lg icon-danger mx-auto'}) }}
+                    {% endif %}
+                </td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
+

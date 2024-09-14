@@ -1,0 +1,13 @@
+{% if items is defined
+    and items is not empty %}
+    {% block content %}
+        <div class="py-3">
+            <h2 class="h5 border-bottom-2 border-gray-400">{{ title|raw }}</h2>
+            <ul class="list-group list-group-flush">
+                {% for item in items %}
+                    {% block item %}{% endblock %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endblock %}
+{% endif %}

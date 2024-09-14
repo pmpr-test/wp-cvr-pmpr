@@ -1,0 +1,24 @@
+{% set has_header = has_header|default(0) %}
+{% set has_footer = has_footer|default(0) %}
+{% set element = 'div' %}
+{% set attrs = attrs|default({})|merge({
+    class: 'card' ~ (attrs.class is defined ? ' ' ~ attrs.class : ''),
+}) %}
+<{{ element }} {{ attrs|default({})|parse_attrs|raw }}>
+    {% if has_header %}
+        <div class="card-header">
+            {% block header %}{% endblock %}
+        </div>
+    {% endif %}
+    {% block before_body %}{% endblock %}
+    <div class="card-body{% if body_class is defined and body_class is not empty %} {{ body_class|esc_attr }}{% endif %}">
+        {% block body %}{% endblock %}
+    </div>
+    {% block after_body %}{% endblock %}
+    {% if has_footer %}
+        <div class="card-footer">
+            {% block footer %}{% endblock %}
+        </div>
+    {% endif %}
+</{{ element }}>
+

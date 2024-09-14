@@ -1,0 +1,62 @@
+<div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-6">
+        {% if items is not empty %}
+            <ul class="list-group list-group-flush mb-4">
+                {% for key, item in items %}
+                    <li class="list-group-item px-0 py-2 d-flex justify-content-between">
+                        <span>{{ item.name|raw }}</span>
+                        <div class="d-flex">
+                            {% set modal_content %}
+                                {% if item.guides|length > 1 %}
+                                    <nav>
+                                        <div class="nav nav-tabs" id="{{ key|raw }}_requirement_guides" role="tablist">
+                                            {% for guide_key, guide in item.guides %}
+                                                <button class="nav-link py-1 font-14 mr-2{% if loop.first %} active{% endif %}"
+                                                        id="guide-{{ key|raw }}-{{ guide_key|raw }}-tab" data-toggle="tab"
+                                                        data-target="#guide-{{ key|raw }}-{{ guide_key|raw }}" type="button"
+                                                        role="tab" aria-controls="guide-{{ key|raw }}-{{ guide_key|raw }}-tab"
+                                                        aria-selected="{% if loop.first %}true{% else %}false{% endif %}">
+                                                    {{ guide.title|raw }}
+                                                </button>
+                                            {% endfor %}
+                                        </div>
+                                    </nav>
+                                    <div class="tab-content" id="{{ key|raw }}_requirement_guides_content">
+                                        {% for guide_key, guide in item.guides %}
+                                            <div class="tab-pane fade pt-2{% if loop.first %} show active{% endif %}"
+                                                 id="guide-{{ key|raw }}-{{ guide_key|raw }}" role="tabpanel"
+                                                 aria-labelledby="guide-{{ key|raw }}-{{ guide_key|raw }}-tab">
+                                                {{ wpautop(guide.description)|raw }}
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {% for guide_key, guide in item.guides %}
+                                        {{ wpautop(guide.description)|raw }}
+                                    {% endfor %}
+                                {% endif %}
+                            {% endset %}
+                            <strong class="text-right">{{ item.value|raw }}</strong>
+                            {{ render_frontend_modal({
+                                id: 'requirement-guide-' ~ key,
+                                centered: 1,
+                                size: 'lg',
+                                action: {
+                                    text: guide_text,
+                                    color: 'outline-primary',
+                                    attrs: {
+                                        class: 'btn btn-sm ml-3 font-13 py-1 my-auto'
+                                    }
+                                },
+                                title: item.guide_title,
+                                content: modal_content
+                            }) }}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+            {{ fields|raw }}
+        {% endif %}
+    </div>
+</div>
+

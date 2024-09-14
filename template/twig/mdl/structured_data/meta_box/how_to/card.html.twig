@@ -1,0 +1,90 @@
+{% if howto is defined and howto is not empty %}
+    <div class="card my-5 border-0">
+        <div class="card-header text-center bg-gray-200">
+            <h2 class="h4 mb-0">{{ title|raw }}</h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                {% include get_template('list', _self) with {
+                    items: howto.supplies,
+                    title: supplies_title,
+                    icon: 'square-check',
+                } %}
+                {% include get_template('list', _self) with {
+                    items: howto.tools,
+                    title: tools_title,
+                    icon: 'circle-check',
+                    is_last: 1
+                } %}
+            </div>
+        </div>
+        {% if howto.cost is defined and howto.cost is not empty
+            and howto.totalTime is defined and howto.totalTime is not empty %}
+            <div class="bg-gray-100">
+                <div class="card-body">
+                    <div class="row">
+                        {% include get_template('item', _self) with {
+                            item: howto.cost,
+                            title: cost_title,
+                            icon: 'dollar-sign'
+                        } %}
+                        {% include get_template('item', _self) with {
+                            item: howto.time,
+                            title: time_title,
+                            icon: 'clock',
+                            is_last: 1
+                        } %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        {% if howto.steps is defined
+            and howto.steps is not empty %}
+            <div class="card-body">
+                <h3 class="h5">{{ steps_title|raw }}</h3>
+                {% if howto.description is defined and howto.description is not empty %}
+                    <p class="mb-0">{{ howto.description }}</p>
+                {% endif %}
+            </div>
+            <div id="steps_accordion" class="p-2">
+                {% for index, step in howto.steps %}
+                    <div class="card{% if not loop.last %} mb-2{% endif %}">
+                        <div class="card-header bg-gray-200" id="step_header_{{ index|esc_attr }}">
+                            <a class="d-flex justify-content-between p-0 btn card-link{% if not loop.first %} collapsed{% endif %}"
+                               data-toggle="collapse"
+                               data-target="#step_content_{{ index|esc_attr }}"
+                               aria-expanded="true" aria-controls="step_content_{{ index|esc_attr }}">
+                                <h4 class="h6 font-17 my-auto text-right">{{ step_title_mask|format(loop.index|number, step.title)|raw }}</h4>
+                                {{ render_icon('fasm/6/set/xmark', {class: 'icon-xs rotate-45deg icon-gray-600 d-none d-md-block my-auto'}) }}
+                            </a>
+                        </div>
+                        <div id="step_content_{{ index|esc_attr }}"
+                             class="bg-gray-100 collapse{% if loop.first %} show{% endif %}"
+                             aria-labelledby="step_header_{{ index|esc_attr }}" data-parent="#steps_accordion">
+                            <div class="card-body d-flex">
+                                {% if step.image is defined
+                                    and step.image is not empty %}
+                                    {{ render_post_data('image', step.image, {
+                                        size: apply_filters('structured_data_howto_step_image_size', 'small'),
+                                        attrs: {
+                                            class: 'img-fluid d-none d-md-block mb-auto mr-5',
+                                        }
+                                    })|raw }}
+                                {% endif %}
+                                <ul class="list-group list-group-flush w-100">
+                                    {% for instruction in step.instructions %}
+                                        {% set isTip = instruction|call('isTip') %}
+                                        <li class="list-group-item border-0 mb-2 font-16{% if isTip %} p-2 li-icon svg-icon icon-info-mark icon-before-3xs alert alert-primary d-flex{% else %} px-2 py-0 bg-transparent{% endif %}">
+                                            <div class="my-auto{% if isTip %} mr-2 px-3{% endif %}">{{ instruction|call('getText')|raw }}</div>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{% endif %}

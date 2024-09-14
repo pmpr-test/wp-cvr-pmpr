@@ -1,0 +1,38 @@
+{% include get_template('./text', _self) with {
+    title: shortcode_title,
+    text: shortcode_description,
+} %}
+<div class="row">
+    {% for index, item in items %}
+        {% if index in [0, 1] %}
+            <div class="col-12 col-lg-{{ index == 0 ? '7 mb-5 mb-lg-0' : '5 d-flex justify-content-between flex-column' }}">
+        {% endif %}
+        {{ do_action('render_cards', item, {
+            meta: meta ?? ['category'],
+            class: '',
+            index: index,
+            layout: index == 0 ? 'horizontal_cover_text' : 'horizontal_right_image_title',
+            card_class: index == 0 ? 'h-100' : (loop.last ? '' : 'mb-5'),
+            has_grid: 0,
+            heading_class: 'font-14 limit-line max-line-1'
+        }) }}
+        {% if index == 0 or loop.last %}
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
+
+{% if stats is defined and stats is not empty %}
+    <div class="d-flex justify-content-around flex-column flex-md-row my-5">
+        {{ stats|raw }}
+    </div>
+{% endif %}
+
+{% if call_to_action_desc is not empty
+    and call_to_action_text is not empty %}
+
+    <div class="text-center">
+        <p class="paragraph">{{ call_to_action_desc|raw }}</p>
+        <a href="{{ permalink|raw }}" class="btn btn-lg btn-primary call-to-action" aria-label="{{ call_to_action_text|esc_attr }}">{{ call_to_action_text|raw }}</a>
+    </div>
+{% endif %}

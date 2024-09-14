@@ -1,0 +1,57 @@
+{% embed get_cover_template('common/media/gradient') with {
+    background: desktop.background,
+    container_class: 'promotion desktop d-none d-md-block py-2 position-relative',
+} %}
+    {% block body %}
+        <div class="container">
+            <div class="d-flex justify-content-between">
+                <div class="no-margin text-white font-weight-bold">{{ wpautop(desktop.text)|raw }}</div>
+                {% if desktop.links is not empty %}
+                    <div>
+                        {% for item in desktop.links %}
+                            <a class="btn btn-sm btn-outline-primary px-5 font-weight-bold btn-{{ item.color }} ml-3"
+                               href="{{ item.link|esc_attr }}"
+                               aria-label="{{ item.text|esc_attr }}">{{ item.text|raw }}</a>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        {% if desktop.icon is not empty %}
+
+            {% embed get_cover_template('common/media/gradient') with {
+                background: desktop.icon_background,
+                container_class: 'rounded-circle centered-absolute promotion-icon',
+            } %}
+                {% block body %}
+                    <img src="{{ wp_get_attachment_image_url(mobile.icon)|esc_attr }}"
+                         class="p-2" alt="Promotion Icon" width="90" height="90">
+                {% endblock %}
+            {% endembed %}
+        {% endif %}
+    {% endblock %}
+{% endembed %}
+
+{% embed get_cover_template('common/media/gradient') with {
+    background: mobile.background,
+    container_class: 'promotion mobile d-block d-md-none py-2 position-relative',
+} %}
+    {% block body %}
+        <div class="container text-center">
+            <a class="no-margin text-decoration-none text-white font-weight-bold"
+               href="{{ mobile.link|esc_attr }}" aria-label="{{ desktop.text|esc_attr }}">{{ wpautop(desktop.text)|raw }}</a>
+        </div>
+        {% if mobile.icon is not empty %}
+            {% embed get_cover_template('common/media/gradient') with {
+                background: mobile.icon_background,
+                container_class: 'rounded-circle position-absolute promotion-icon',
+            } %}
+                {% block body %}
+                    <img src="{{ wp_get_attachment_image_url(mobile.icon)|esc_attr }}"
+                         class="p-2" alt="Promotion Icon" width="70" height="70">
+                {% endblock %}
+            {% endembed %}
+        {% endif %}
+    {% endblock %}
+{% endembed %}

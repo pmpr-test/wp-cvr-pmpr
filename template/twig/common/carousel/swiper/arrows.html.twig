@@ -1,0 +1,15 @@
+<div class="carousel-arrows separated-arrows {{ class|esc_attr }}">
+
+    {% set icon = icon|default('angle') %}
+    {% set btn_class = btn_class|default('') ~ ' splide__arrow carousel-arrow border-0 bg-gray-100 icon-hover-white bg-hover-primary d-flex' %}
+    {% set icon_attrs = {class: 'svg-icon icon-md m-auto icon-dark'} %}
+
+    <button type="button" class="prev swiper-button-prev {{ btn_class }} {{ prev_class }}" aria-label="{{ __('Previous', domain)|esc_attr }}">
+        {{ get_icon('fasm/6/set/' ~ icon ~ '-right', icon_attrs)|raw }}
+    </button>
+
+    <button type="button" class="next swiper-button-next {{ btn_class }} {{ next_class }}" aria-label="{{ __('Next', domain)|esc_attr }}">
+        {{ get_icon('fasm/6/set/' ~ icon ~ '-left', icon_attrs)|raw }}
+    </button>
+
+</div>

@@ -1,0 +1,38 @@
+{% extends get_template('../../container_sidebar', _self) %}
+
+{% block main %}
+    <main>
+        {% include get_template('../../common/page_header', _self) with {
+            title_attrs: {
+                class: 'h2'
+            }
+        } %}
+        {% if is_active_sidebar('before-feature-image') %}
+            <div class="row my-5">
+                {{ dynamic_sidebar('before-feature-image') }}
+            </div>
+        {% endif %}
+        <div class="aligncenter my-5">
+
+            {{ render_post_data('image', object, {
+                size: 'large',
+                attrs: {
+                    class: 'w-100 img-fluid post-featured-image'
+                }
+            })|raw }}
+        </div>
+        {% include get_template('../../common/have_posts', _self) %}
+    </main>
+    {{ comments_template() }}
+{% endblock %}
+
+{% block sidebar %}
+    {{ parent() }}
+    {{ dynamic_sidebar('single-sidebar') }}
+{% endblock %}
+
+{% block after_container %}
+    {% include get_template('../../common/widget/after_archive', _self) with {
+        sidebar_name: 'after-single-container'
+    } %}
+{% endblock %}

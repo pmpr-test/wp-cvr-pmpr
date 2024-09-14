@@ -1,0 +1,15 @@
+{% include get_template('./title_and_description', _self) with {
+    is_center: 0
+} %}
+
+<div class="row mt-5">
+    {% for item in items %}
+        <article class="col-12 col-md-6 col-xl-4 mb-5 d-flex">
+            {{ wp_get_attachment_image(item.image, [80, 100])|raw }}
+            <div class="ml-3">
+                {{ render_if_has_content('h3', {class: 'h5 mb-3'}, item.title) }}
+                {{ render_if_has_content('div', {class: 'font-14 lh-sm mt-auto'}, item.text) }}
+            </div>
+        </article>
+    {% endfor %}
+</div>

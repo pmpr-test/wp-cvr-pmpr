@@ -1,0 +1,11 @@
+{% set loop_content %}
+    {% block loop %}{% endblock %}
+{% endset %}
+
+{% embed get_template('../main', _self) %}
+    {% block content %}
+        <div class="row">{{ loop_content|raw }}</div>
+    {% endblock %}
+{% endembed %}
+{% include get_template('../pagination', _self, _current_template_name) %}
+

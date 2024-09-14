@@ -1,0 +1,11 @@
+{% extends get_template('base', _self) %}
+
+{% block item %}
+    <li class="list-group-item border-0 p-0 bg-transparent mb-3">
+        {% include get_template('../card_horizontal_right_image_title', _self) with {
+            has_grid: 0,
+            has_meta: 0,
+            heading_class: 'font-weight-normal font-15 limit-line max-line-2'
+        } %}
+    </li>
+{% endblock %}

@@ -1,0 +1,36 @@
+<div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-8">
+        {% include get_template('./title_and_description', _self) with {
+            centered: 1
+        } %}
+        <div class="text-center mb-5">
+            {{ alert|raw }}
+            {% include get_template('./actions', _self) with {
+                new_tab: 1
+            } %}
+        </div>
+    </div>
+</div>
+{% embed get_cover_template('common/carousel/carousel') with {
+    arrows_class: 'd-flex justify-content-between position-absolute top-50 w-100 px-3',
+    carousels: items,
+    container_class: 'pro-wp-demo',
+    carousel_config: {
+        dots: true,
+        speed: 2000,
+        arrows: true,
+        autoplay: true,
+        infinite: true,
+        centerMode: true,
+        slidesToShow: 1,
+        centerMode: true,
+        autoplaySpeed: 8000,
+    }
+} %}
+    {% block carousel %}
+        <div class="carousel-item">
+            {{ wp_get_attachment_image(carousel.image, 'large', {class: 'img-fluid d-block mx-auto'})|raw }}
+        </div>
+    {% endblock %}
+{% endembed %}
+

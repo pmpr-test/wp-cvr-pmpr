@@ -1,0 +1,21 @@
+{% if rednder|default(1) %}
+    <div class="card mb-3">
+        <h2 class="h5 mb-0 card-header bg-gray-200">
+            <a class="d-flex justify-content-between text-decoration-none my-auto{% if collapse_items %} collapsed{% endif %}"
+               data-toggle="collapse" aria-label="{{ title|esc_attr }}"
+               href="#filter-{{ id }}" aria-expanded="true"
+               aria-controls="filter-{{ id }}" id="heading-{{ id }}">
+                <span>{{ title }}</span>
+                {{ get_icon('fasm/6/set/chevron-down', {
+                    class: 'icon-3xs rotate-90deg icon-secondary'
+                }) }}
+            </a>
+        </h2>
+        <div id="filter-{{ id|esc_attr }}" data-filter="{{ id|esc_attr }}"
+             class="collapse{% if not collapse_items %} show{% endif %}" aria-labelledby="heading-{{ id }}">
+            <div class="card-body {{ card_body_class|default('px-3 py-2') }}">
+                {% block body %}{% endblock body %}
+            </div>
+        </div>
+    </div>
+{% endif %}

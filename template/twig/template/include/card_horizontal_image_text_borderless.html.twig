@@ -1,0 +1,6 @@
+{% extends get_template('base', _self) %}
+{% block content %}
+    {% include get_template('card_horizontal_image_text_borderless_markup', _self) with {
+        is_left: is_left|default(1)
+    } %}
+{% endblock %}

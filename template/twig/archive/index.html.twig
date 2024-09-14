@@ -1,0 +1,8 @@
+{% extends get_template('base', _self) %}
+
+{% block container %}
+    {% include get_template('../common/loop', _self, _current_template_name) with {
+        column: 3
+    } %}
+{% endblock %}
+

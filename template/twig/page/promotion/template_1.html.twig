@@ -1,0 +1,19 @@
+{% extends get_template('./common', _self) %}
+
+{% block content %}
+
+    <div class="text-center text-white mb-5">
+        {{ render_if_has_content('div', {class: 'h5'}, title) }}
+        <div class="d-flex justify-content-between">
+            {{ render_if_has_content('div', {class: 'w-100 h4 no-margin my-auto'}, wpautop(text)) }}
+        </div>
+    </div>
+    {% if action is not empty %}
+        <div class="text-center">
+            {% include get_cover_template('common/call_to_action') with {
+                text: action.title,
+                permalink: action.permalink
+            } %}
+        </div>
+    {% endif %}
+{% endblock %}

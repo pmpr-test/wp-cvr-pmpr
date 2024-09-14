@@ -1,0 +1,13 @@
+{% extends get_cover_template('container') %}
+
+{% block container %}
+    <main>
+        {% include get_cover_template('common/page_header') with {
+            title_attrs: {
+                class: 'mb-5'
+            }
+        } %}
+        {% include get_cover_template('common/have_posts') %}
+    </main>
+{% endblock %}
+

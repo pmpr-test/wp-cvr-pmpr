@@ -1,0 +1,7 @@
+{% set has_grid         = has_grid|default(1) %}
+{% set card_class       = card_class|default('') %}
+{% set is_shortcode     = is_shortcode|default(0) %}
+{% set heading_element  = heading_element|default('h3') %}
+
+{% set card_class = 'card shadow w-100' ~ (card_class is not empty ? ' ' ~ card_class: '') %}
+{% block content %}{% endblock %}

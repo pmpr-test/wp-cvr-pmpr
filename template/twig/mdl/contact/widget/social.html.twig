@@ -1,0 +1,10 @@
+<div class="d-flex justify-content-between mt-3">
+    {% for item in items %}
+
+        <a href="{{ item.url|raw }}" rel="nofollow noopener noreferrer" aria-label="{{ __('Social Icon', domain)|esc_attr }}"
+           target="_blank" title="{{ item.title|raw }}" class="hover-translate-y-n3 my-auto">
+            {{ render_icon(item.icon, {class: 'social-icon icon-primary icon-' ~ icon_size|default('xxl')}) }}
+        </a>
+
+    {% endfor %}
+</div>

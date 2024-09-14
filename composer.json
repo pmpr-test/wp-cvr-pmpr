@@ -1,0 +1,28 @@
+{
+  "name": "pmpr-cvr/wp-cvr-pmpr",
+  "type": "project",
+  "license": "proprietary",
+  "description": "PMPR Cover for Wordpress",
+  "keywords": [
+    "wordpress",
+    "theme",
+    "cover",
+    "pmpr"
+  ],
+  "require": {
+    "php": ">=8.2",
+    "pmpr-cmn/wp-cmn-cover": "~1.1"
+  },
+  "prod-require": {
+    "php": "8.2",
+    "wordpress": "6.0",
+    "wp-cmn-cover": "latest"
+  },
+  "autoload": {
+    "psr-4": {
+      "Pmpr\\Cover\\Pmpr\\": "src/Pmpr/Cover/Pmpr"
+    }
+  },
+  "minimum-stability": "dev",
+  "tag": "1.1.136"
+}

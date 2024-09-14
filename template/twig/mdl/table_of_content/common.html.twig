@@ -1,0 +1,10 @@
+<div class="left-bordered-box info px-4 py-4 my-5">
+    <div class="title d-flex justify-content-between">
+        <span class="h4 mb-0">{{ title|raw }}</span>
+        {% if collapsible %}
+            <a href="#" class="h6 my-auto text-decoration-none text-info" data-toggle="collapse" data-target=".toc-list"
+               data-replace="{{ show_title|raw|esc_attr }}" aria-expanded="true">{{ hide_title|raw }}</a>
+        {% endif %}
+    </div>
+    <ul class="toc-list list-group list-group-flush collapse show mt-4">{{ headings|raw }}</ul>
+</div>

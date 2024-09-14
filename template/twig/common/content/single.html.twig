@@ -1,0 +1,6 @@
+{{ pmpr_do_action('single_before_content', post) }}
+{{ dynamic_sidebar('before-single-content') }}
+{{ dynamic_sidebar('before-' ~ post_type ~ '-single-content') }}
+<div class="{{ post_type|default('')|esc_attr }}-content">{{ the_content()|raw }}</div>
+{{ dynamic_sidebar('after-' ~ post_type ~ 'single-contenet') }}
+{{ pmpr_do_action('single_after_content', post) }}

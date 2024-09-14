@@ -1,0 +1,14 @@
+{% set has_link = has_link|default(1) %}
+{% if has_link %}
+<a href="{{ home_url()|esc_attr }}" class="{{ container_class|esc_attr }}"
+   aria-label="{{ __('Site Logo', domain)|esc_attr }}" rel="nofollow">
+{% endif %}
+    {{ pmpr_do_action('render_site_logo', {
+        key: logo_key,
+        type: logo_type,
+        size: logo_size|default('')
+    }) }}
+{% if has_link %}
+</a>
+{% endif %}
+

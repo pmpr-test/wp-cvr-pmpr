@@ -1,0 +1,6 @@
+{% if alerts is defined and alerts is not empty %}
+    {% for alert in alerts %}
+        {{ alert|raw }}
+    {% endfor %}
+{% endif %}
+

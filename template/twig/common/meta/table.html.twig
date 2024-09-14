@@ -1,0 +1,31 @@
+{% if items is defined and items is not empty %}
+    <div class="text-center my-3 rounded bg-white border">
+        <table class="table my-0 bg-transparent w-100">
+            <tbody>
+            {% for key, item in items %}
+                {% set has_link = item.link is defined and item.link is not empty %}
+                {% set attrs = item.attrs ?? {} %}
+                {% if has_link %}
+                    {% set attrs = attrs|default({})|merge({class: 'clickable-row' ~ (attrs.class|default('')|trim is not empty ? ' ' ~ attrs.class : '')}) %}
+                {% endif %}
+                <tr {{ attrs|parse_attrs|raw }} {% if has_link %} data-href="{{ item.link|esc_attr }}"{% endif %}>
+                    {% set has_title = 0 %}
+                    {% if item.title is defined
+                        and item.title is not empty %}
+                        {% set has_title = 1 %}
+                        <th class="d-flex font-15 font-weight-normal text-gray-800 text-left py-2 pl-3 pr-0 mr-before-3 icon-before-primary icon-before-2xs icon-{{ item.icon|esc_attr }}">
+                            {{ item.title|raw }}
+                        </th>
+                    {% endif %}
+                    <td class="font-15 font-weight-bold text-gray-700 text-left py-2 pr-0 pr-4{% if key == 'rating' %} direction-ltr{% endif %}"{% if not has_title %} colspan="2" {% endif %}>
+                        {{ item.value|raw }}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% if rating is defined and rating %}
+            {{ rating|raw }}
+        {% endif %}
+    </div>
+{% endif %}

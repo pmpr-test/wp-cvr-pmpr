@@ -1,0 +1,16 @@
+{% set carousel_config = {
+    type: 'loop',
+    speed: 400,
+    rewind: true,
+    clones: 1,
+    perMove: 1,
+    perPage: 1,
+    interval: 8000,
+    autoplay: true,
+    pagination: false,
+    rewindSpeed: 1500,
+} %}
+{% set container_class = 'single-column-slider' %}
+{% set arrows_class = 'd-flex justify-content-between position-absolute top-50 w-100 px-3' %}
+{% extends get_template('carousel', _self) %}
+

@@ -1,0 +1,42 @@
+{% include get_template('./text', _self) with {
+    title: shortcode_title,
+    text: shortcode_description,
+} %}
+
+{% set code_html %}
+    {% if editor is defined and editor is not empty
+        and language is defined and language is not empty %}
+
+        <pre class="code-container direction-ltr text-right language-{{ language|esc_attr }} h-100">
+            {% if not is_amp() %}
+                <code class="language-{{ language|esc_attr }}"
+                      data-lang="{{ language|esc_attr }}"
+                      data-code="{{ editor|esc_attr }}">
+            {% endif -%}
+
+            {% if not is_amp() %}
+                </code>
+            {% endif -%}
+        </pre>
+    {% endif %}
+{% endset %}
+
+{% if text is defined
+    and text is not empty %}
+
+    {% set is_right = code_right|default(0) %}
+    <figure class="row">
+        <figcaption class="col-12 col-md-6 order-1 order-md-{{ is_right ? 2 : 1 }}">
+            {{ text|raw }}
+        </figcaption>
+        <div class="col-12 col-md-6 order-2 order-md-{{ is_right ? 1 : 2 }}">
+            {{ code_html|raw }}
+        </div>
+    </figure>
+
+{% else %}
+
+    {{ code_html|raw }}
+{% endif %}
+
+

@@ -1,0 +1,30 @@
+{% if carousels %}
+    <div class="swiper-container position-relative">
+        <div class="swiper"{% if carousel_config is defined %}
+        data-carousel="{{ carousel_config|json_encode|esc_attr }}"{% endif %}
+             dir="rtl"{% if carousel_id is defined %} id="{{ carousel_id|esc_attr }}"{% endif %}>
+
+            {% block before_slides %}{% endblock %}
+            <div class="swiper-wrapper {{ container_class|esc_attr }}">
+                {% for key, carousel in carousels %}
+                    <div class="swiper-slide">
+                        {% block carousel %}{% endblock %}
+                    </div>
+                {% endfor %}
+            </div>
+
+            {% block after_slides %}{% endblock %}
+        </div>
+
+        {% if carousel_config.arrows is not defined
+            or carousel_config.arrows %}
+            {% block carousel_arrow %}
+                {% include get_template('arrows', _self) with {
+                    btn_class: arrow_class,
+                    class: arrows_class,
+                    icon: arrow_icon,
+                } %}
+            {% endblock %}
+        {% endif %}
+    </div>
+{% endif %}

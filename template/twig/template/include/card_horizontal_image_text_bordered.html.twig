@@ -1,0 +1,8 @@
+{% extends get_template('base', _self) %}
+{% block content %}
+    <div class="card shadow">
+        <div class="card-body">
+            {% include get_template('card_horizontal_image_text_borderless_markup', _self) %}
+        </div>
+    </div>
+{% endblock %}

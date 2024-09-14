@@ -1,0 +1,26 @@
+<div class="bg-cover vh-100"
+     style="background-image: url('{{ wp_get_attachment_url(background)|esc_attr }}')">
+    <div class="container">
+        {% if logo is not empty %}
+        <div class="d-flex justify-content-center justify-content-lg-start">
+            <a href="{{ home_url()|esc_url }}" class="">
+                {{ wp_get_attachment_image(logo, [180, 60], {class: 'mt-5 mb-lg-5'})|raw }}
+            </a>
+        </div>
+        {% endif %}
+        <div class="text-center text-white py-10">
+            {% include get_template('./title_and_description', _self) with {
+                title_attrs: {class: 'h1 mb-5'},
+            } %}
+
+            {% if action is not empty %}
+                {% include get_cover_template('common/call_to_action') with {
+                    text: action.title,
+                    color: 'light',
+                    permalink: action.permalink
+                } %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+

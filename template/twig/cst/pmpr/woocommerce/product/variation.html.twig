@@ -1,0 +1,6 @@
+<dl class="variation font-14 d-flex mb-0">
+    {% for item in items %}
+        <dt class="font-weight-normal">{{ item.key|raw}}<span class="mx-1">:</span></dt>
+        <dd class="font-weight-bold mb-0 mr-4">{{ item.display|raw }}</dd>
+    {% endfor %}
+</dl>

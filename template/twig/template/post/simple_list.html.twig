@@ -1,0 +1,27 @@
+{% if items is defined and items is not empty %}
+    <div class="card w-100 border-0 shadow-sm">
+        <table class="table my-0 bg-transparent w-100">
+            {% if title is defined and title is not empty %}
+                <thead>
+                <tr class="p-0 bg-gray-200">
+                    <th class="px-3 py-2 font-16 text-secondary text-md-right border-gray-200 border-bottom-0">
+                        {{ title|raw }}
+                    </th>
+                </tr>
+                </thead>
+            {% endif %}
+            <tbody>
+            {% for item in items %}
+                <tr class="bg-transparent">
+                    <td class="w-100 border-gray-200 py-2">
+                        {% set title = render_post_data('title', item) %}
+                        <a href="{{ render_post_data('permalink', item) }}"
+                           class="font-15 font-weight-bold text-decoration-none limit-line max-line-1"
+                           title="{{ title|esc_attr }}">{{ title|raw }}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endif %}

@@ -1,0 +1,36 @@
+{% set prev_class = 'ml-n8' %}
+{% set next_class = 'mr-n8' %}
+{% set arrows_class = 'd-none d-md-flex justify-content-between position-absolute top-50 w-100' %}
+{% set carousel_config = {
+    dots: false,
+    speed: 1000,
+    autoplay: true,
+    infinite: true,
+    perPage: 4,
+    slidesToScroll: 1,
+    responsive: [
+        {
+            breakpoint: 1200,
+            settings: {
+                perPage: 3,
+                slidesToScroll: 1
+            }
+        },
+        {
+            breakpoint: 1000,
+            settings: {
+                perPage: 2,
+                slidesToScroll: 1
+            }
+        },
+        {
+            breakpoint: 768,
+            settings: {
+                perPage: 1,
+                slidesToScroll: 1
+            }
+        }
+    ],
+} %}
+{% extends get_template('carousel', _self) %}
+

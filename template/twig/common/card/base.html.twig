@@ -1,0 +1,7 @@
+{% set card_args = card_args|default({
+    has_grid: 0,
+    image_size: '593x339',
+    has_description: 0,
+}) %}
+{{ do_action('render_card', item, card_args) }}
+

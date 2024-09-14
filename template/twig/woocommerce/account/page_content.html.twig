@@ -1,0 +1,18 @@
+{% if is_user_logged_in() %}
+    <h1 class="sr-only">{{ the_title()|raw }}</h1>
+    <div>
+        {{ the_content()|raw }}
+    </div>
+{% else %}
+    <h1 class="sr-only">{{ __('Login', domain)|raw }}</h1>
+    <section class="row justify-content-center">
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="py-5"></div>
+            {{ the_content()|raw }}
+            <div class="text-center">
+                <a href="{{ home_url()|raw }}" class="card-link">{{ back_to|raw }}</a>
+            </div>
+        </div>
+    </section>
+{% endif %}
+

@@ -1,0 +1,24 @@
+{% extends get_template('./common', _self) %}
+
+{% block content %}
+
+    <div class="d-flex flex-column flex-md-row">
+        {% if image is not empty %}
+            {{ wp_get_attachment_image(image, [150, 150], {class: 'd-block mx-auto mb-5 mb-md-0 mr-md-3'})|raw }}
+        {% endif %}
+        <div class="w-100 d-flex justify-content-between flex-column flex-md-row my-auto">
+            <div class="no-margin mb-5 mb-md-0 text-center text-md-left">
+                {{ render_if_has_content('div', {class: 'h5'}, title) }}
+                {{ wpautop(text)|raw }}
+            </div>
+            {% if action is not empty %}
+                <div class="text-center text-lg-right mt-auto">
+                    {% include get_cover_template('common/call_to_action') with {
+                        text: action.title,
+                        permalink: action.permalink
+                    } %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

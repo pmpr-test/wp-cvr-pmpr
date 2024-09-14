@@ -1,0 +1,20 @@
+{% extends get_cover_template('container') %}
+
+{% block before_container %}
+
+    <header class="container">
+        {{ render_if_has_content('h1', {class: 'my-5'}, title) }}
+        {{ render_if_has_content('div', {}, wpautop(description)) }}
+    </header>
+{% endblock %}
+
+{% block container %}
+
+    {{ 'woocommerce_output_all_notices'|call() }}
+
+    {{ multistep|raw }}
+
+    {% include get_cover_template('common/content/page') %}
+
+{% endblock %}
+

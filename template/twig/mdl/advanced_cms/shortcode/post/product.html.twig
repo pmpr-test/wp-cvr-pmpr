@@ -1,0 +1,54 @@
+<div class="left-bordered-box product mb-3 rounded">
+    <div class="p-4">
+
+        {% if title is not empty %}
+            <div class="h5 title mb-2">{{ title|raw }}</div>
+        {% endif %}
+
+        {% if description is not empty %}
+            <div class="description no-margin">{{ description|raw }}</div>
+        {% endif %}
+    </div>
+    {% if promotion is not empty %}
+        <div class="h5 mb-0 promotion no-margin p-4 text-center">{{ promotion|raw }}</div>
+    {% endif %}
+    <div class="card bg-gray-100 rounded-0">
+        <div class="card-body p-4">
+            <div class="d-flex mt-2">
+                {{ image|raw }}
+                <div class="text-gray-700">
+                    <div class="h5 mb-3">
+                        {{ product_title|raw }}
+                    </div>
+                    {{ product_description|raw }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 border-bottom border-gray-300 my-4"></div>
+                <div class="col-12 col-md-6 col-lg-7 mb-5 mb-md-0">
+                    {{ do_action('woocommerce_render_attributes', {
+                        type: 'top',
+                        product: product,
+                        has_card: 0,
+                        icon_color: 'danger',
+                        each_class: 'col-12 col-lg-6 py-2 border-bottom border-gray-300',
+                    }) }}
+                </div>
+                <div class="col-12 col-md-6 col-lg-5 d-flex">
+                    <div class="card bg-gray-200 w-100">
+                        <div class="card-body h-100 p-4 d-flex justify-content-between flex-column">
+                            {{ do_action('woocommerce_product_price_section', {
+                                th_class: 'py-0 pr-2 pl-0 text-gray-600',
+                                table_class: 'mb-4 table-borderless',
+                                product: product,
+                            }) }}
+                            <a class="btn btn-block font-weight-bold link" aria-label="{{ button_title|esc_attr }}"
+                               href="{{ permalink }}" target="_blank">{{ button_title|raw }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

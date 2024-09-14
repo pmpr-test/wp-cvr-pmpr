@@ -1,0 +1,64 @@
+{% extends get_cover_template('container') %}
+
+{% block before_container %}
+
+    <header class="container">
+        {{ render_if_has_content('h1', {class: 'my-5'}, title) }}
+        {{ render_if_has_content('div', {}, wpautop(description)) }}
+    </header>
+{% endblock %}
+
+{% block container %}
+
+    {{ 'woocommerce_output_all_notices'|call() }}
+    {% if cards is defined
+        and cards is not empty %}
+
+        <div class="row">
+            {% for card_key, card in cards %}
+                <div class="col-12 col-md-6 mb-5">
+                    <article class="card border-gray-400">
+                        {% if card.image is not empty %}
+                            {% if card.image is iterable %}
+                                {% embed get_cover_template('common/carousel/swiper/single_column') with {
+                                    carousels: card.image,
+                                    container_class: 'wp-speed-carousel'
+                                } %}
+                                    {% block carousel %}
+                                        {{ wp_get_attachment_image(carousel.id, [593, 220], {class: 'w-100 d-block card-img-top'})|raw }}
+                                        <div class="position-absolute bottom-0 w-100 overlay overlay-dark overlay-70 z-index-1">
+                                            <div class="h5 text-center text-lg-left text-white slide-title p-4 z-index-2"
+                                                 data-limit="1">{{ carousel.text|raw }}</div>
+                                        </div>
+                                    {% endblock %}
+                                {% endembed %}
+                            {% else %}
+                                {{ wp_get_attachment_image(card.image, [593, 220], {class: 'w-100 d-block card-img-top'})|raw }}
+                            {% endif %}
+                        {% endif %}
+                        <div class="card-body">
+
+                            {{ render_if_has_content('h2', {class: 'h5 card-title'}, card.title) }}
+                            {{ render_if_has_content('p', {class: 'card-text'}, card.description) }}
+                            {% if card.permalink is not empty %}
+                                {% include get_cover_template('common/call_to_action') with {
+                                    button: 0,
+                                    attrs: {'class': 'btn py-1 btn-block btn' ~ (card_key is same as('campaign') ? '-outline' : '') ~ '-primary'},
+                                    text: card.action_text,
+                                    permalink: card.permalink,
+                                } %}
+                            {% endif %}
+                        </div>
+                        {% if card.promotion is not empty %}
+                            <div class="card-footer text-center">
+                                <small class="text-primary">{{ card.promotion|raw }}</small>
+                            </div>
+                        {% endif %}
+                    </article>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% include get_cover_template('common/content/page') %}
+{% endblock %}
+

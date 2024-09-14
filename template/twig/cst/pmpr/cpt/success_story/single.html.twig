@@ -1,0 +1,106 @@
+{% set widget_enable = 0 %}
+{% extends get_cover_template('container_sidebar') %}
+
+{% set info = render_post_data('info', post, {
+    avatar_size: 200,
+    avatar_image_size: 'medium',
+    avatar_attrs: {class: 'mx-auto rounded-circle mb-5'},
+}) %}
+
+{% block main %}
+    <main>
+        {% embed get_cover_template('common/page_header') with {
+            title_attrs: {
+                class: 'h3 mb-4'
+            }
+        } %}
+            {% block after_title %}
+                <div class="aligncenter my-4">
+
+                    {{ render_post_data('image', object, {
+                        size: 'large',
+                        attrs: {
+                            class: 'w-100 img-fluid post-featured-image'
+                        }
+                    })|raw }}
+                </div>
+            {% endblock %}
+
+        {% endembed %}
+
+        {% if info.business_name is not empty
+            and info.business_logo_id is not empty %}
+
+            <div class="card border-0 rounded bg-gray-100 my-5">
+                <article class="card-body d-flex">
+                    {{ wp_get_attachment_image(info.business_logo_id, 'small', {class: ''})|raw }}
+                    <div class="ml-3">
+                        <h2 class="h6 mb-2">{{ info.business_name|raw }}</h2>
+                        <div class="lh-sm font-14 no-margin">{{ wpautop(info.business_desc)|raw }}</div>
+                    </div>
+                </article>
+            </div>
+
+        {% endif %}
+
+        <div class="mb-4">
+            {{ pmpr_do_action('video_aparat_render_iframe', {
+                url: info.video_url
+            }) }}
+        </div>
+
+        <div class="post-content">
+            {% include get_cover_template('common/have_posts') %}
+        </div>
+    </main>
+{% endblock %}
+
+{% block sidebar %}
+
+    <div class="card mb-5">
+        <div class="card-body d-flex justify-content-center flex-column text-center">
+
+            {{ info.avatar|raw }}
+
+            <span class="h5">{{ info.name|raw }}</span>
+
+            {% if info.business_name %}
+                <span class="h6 mb-3">{{ info.business_name|raw }}</span>
+            {% endif %}
+            {% if info.business_url %}
+                <div class="mt-1 mb-4">
+                    {% include get_cover_template('common/call_to_action') with {
+                        blank: 1,
+                        size: 'sm',
+                        color: 'outline-primary',
+                        text: info.business_url_text,
+                        permalink: info.business_url,
+                    } %}
+                </div>
+            {% endif %}
+            <div class="card">
+                <div class="card-body bg-gray-100 d-flex justify-content-between flex-column">
+                    {{ info.date_text|raw }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% set product =  info.ordered_product %}
+    {% if product %}
+        <div class="sticky-top pt-5">
+            <div class="card">
+                <div class="card-body text-center lh-md">
+
+                    <div class="h5 mb-4">{{ get_title(product)|raw }}</div>
+                    {% include get_cover_template('common/call_to_action') with {
+                        py: 1,
+                        text: info.view_product,
+                        permalink: get_permalink(product),
+                    } %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+

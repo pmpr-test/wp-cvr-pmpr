@@ -1,0 +1,5 @@
+{% embed get_template('../grid_item', _self) %}
+    {% block grid_content %}
+        {% include get_template('../card', _self) %}
+    {% endblock %}
+{% endembed %}

@@ -1,0 +1,32 @@
+{{ action|raw }}
+<div class="modal{% if not show %} fade{% endif %}" id="{{ id|esc_attr }}"
+     {% if not dismissible %}data-backdrop="static"{% endif %}
+     role="dialog" aria-hidden="true" aria-labelledby="{{ id|esc_attr }}_label">
+    <div class="modal-dialog modal-{{ size|default('md')|esc_attr }}{% if centered %} modal-dialog-centered{% endif %}"
+         role="document">
+        <div class="modal-content">
+            {% if title is defined
+                and title is not empty %}
+                <div class="modal-header px-5">
+                    {{ render_if_has_content(title_element|default('strong'), {id: id, class: 'modal-title p-0'}, title) }}
+                    {% if dismissible %}
+                        <a href="#" class="close card-link" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </a>
+                    {% endif %}
+                </div>
+            {% endif %}
+            {{ render_if_has_content('div', {class: 'modal-body px-5'}, content) }}
+            {% if actions is defined
+                and actions is not empty %}
+                <div class="modal-footer px-5">
+                    {% for button in buttons %}
+                        {{ button|raw }}
+                    {% endfor %}
+                    {{ footer_content|raw }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,21 @@
+<div class="h4 pt-4 mb-0">
+    <span class="ml-1 text-primary">
+        {{ count|raw }}
+    </span>
+    {{ title|raw }}
+</div>
+{% if not has_comment %}
+    <p class="m-0">{{ empty_message|raw }}</p>
+{% endif -%}
+<div>
+    <ul id="comment_list"
+        class="comments-list my-5 list-group list-group-flush p-0{% if not has_comment %} done{% endif %}">
+        {% if has_comment %}
+            {{ comments|raw }}
+        {% endif %}
+    </ul>
+    <div class="position-relative pb-5">
+        {{ spinner|raw }}
+    </div>
+</div>
+

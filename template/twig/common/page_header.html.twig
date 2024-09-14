@@ -1,0 +1,16 @@
+{% if jumbotron is defined
+    and jumbotron is not empty %}
+    <header>
+        {% set title_attrs = title_attrs|default({}) %}
+        {% set title_attrs = title_attrs|add('class', 'text-primary') %}
+        <{{ heading|default('h1') }} {{ title_attrs|parse_attrs|raw }}>{{ jumbotron|raw }}</{{ heading|default('h1') }}>
+        {% block after_title %}{% endblock %}
+        {% if excerpt is defined
+            and excerpt is not empty %}
+            {% set excerpt_attrs = excerpt_attrs|default({}) %}
+            {% set excerpt_attrs = excerpt_attrs|add('class', 'font-18 text-gray-700') %}
+            <p class="font-18 text-gray-700">{{ excerpt|raw }}</p>
+        {% endif %}
+    </header>
+{% endif %}
+

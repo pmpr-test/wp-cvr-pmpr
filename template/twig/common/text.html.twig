@@ -1,0 +1,11 @@
+{% if (title is defined and title is not empty)
+    or (text is defined and text is not empty) %}
+    <div class="pb-3">
+        {% if title is defined and title is not empty %}
+            <h2 class="h3{% if text is not defined or text is empty %} mb-0{% endif %}">{{ title|raw }}</h2>
+        {% endif %}
+        {% if text is defined and text is not empty %}
+            <p class="mb-0">{{ text|raw }}</p>
+        {% endif %}
+    </div>
+{% endif %}

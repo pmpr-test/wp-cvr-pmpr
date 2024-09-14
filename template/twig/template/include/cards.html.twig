@@ -1,0 +1,41 @@
+{% if items is defined and items is not empty %}
+
+    {% include get_template('template_header', _self) %}
+    <div class="row my-5">
+        {% set columns = "col-12 col-md-2 col-lg-" ~ (12 / column|default(4)) %}
+        {% for item in items %}
+            {% set url = render_post_data('url', item) %}
+            <div class="d-flex {{ columns }} {{ card_bottom_margin(loop, columns) }}">
+                {% embed get_template('card', _self) with {
+                    attrs: {}
+                } %}
+                    {% block before_body %}
+                        {% if url is not empty %}
+                            <a href="{{ url|esc_attr }}">
+                        {% endif %}
+                        {{ render_post_data('image', item.id, {
+                            class: 'img-fluid h-100 w-100'
+                        })|raw }}
+                        {% if url is not empty %}
+                            </a>
+                        {% endif %}
+                    {% endblock %}
+                    {% block body %}
+                        {% if url is not empty %}
+                            <a href="{{ url|esc_attr }}">
+                        {% endif %}
+                        <span class="h6 card-title">
+                            {{ render_post_data('title', item)|raw }}
+                        </span>
+                        {% if url is not empty %}
+                            </a>
+                        {% endif %}
+                        <div class="card-text">
+                            {{ render_post_data('desc', item)|raw }}
+                        </div>
+                    {% endblock %}
+                {% endembed %}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}

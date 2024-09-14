@@ -1,0 +1,17 @@
+<div class="my-5">
+    {% if title is defined and title is not empty %}
+        <h2 class="h5 border-bottom-2 border-gray-400">{{ title|raw }}</h2>
+    {% endif %}
+    <ul class="list-group list-group-flush">
+        {% for item in items %}
+            <li class="list-group-item border-0 p-0 bg-transparent{% if not loop.last %} mb-3{% endif %}">
+                {% include get_template('../../template/card_horizontal_right_image_title', _self) with {
+                    has_grid: 0,
+                    has_meta: 0,
+                    heading_class: 'font-weight-normal font-15 limit-line max-line-2'
+                } %}
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+

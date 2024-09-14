@@ -1,0 +1,35 @@
+{% block content %}
+    {% set has_link = link is defined and link is not empty %}
+    <div class="{{ card_class ?? '' }} w-100 bg-{{ background ?? 'light' }} text-{{ text_color ?? 'dark' }} mb-3">
+        {% if header is defined and header is not empty %}
+            <div class="card-header" id="header">{{ header }}</div>
+        {% endif %}
+        <div class="card-body">
+            <div class="row">
+                {% if icon is defined and icon is not empty %}
+                    <div class="col-2 text-center text-{{ background }}-60 d-none d-md-inline px-0 mr-n3">
+                        {{ get_icon(icon, {
+                            size: size|default(80)
+                        }) }}
+                    </div>
+                {% endif %}
+                <div class="col-{{ has_link ? 11 : 12 }} col-md-{{ has_link ? 9 : 10 }} px-5 px-md-0 m-0 mr-md-n4">
+                    {% if title is defined and title is not empty %}
+                        <h5 class="card-title mb-1" id="title">{{ title ?? '' }}</h5>
+                    {% endif %}
+                    {% if text is defined and text is not empty %}
+                        <div class="card-text" id="text">{{ text ?? '' }}</div>
+                    {% endif %}
+                </div>
+                {% if has_link %}
+                    <a href="{{ render_post_data('url', item)|raw }}"
+                       class="col-1 w-100 h-100 p-0 text-light position-absolute left-0 top-0 d-flex justify-content-center">
+                        {{ get_icon('fasm/6/set/angle-left', {
+                            class: 'icon-' ~ item.icon_color|default('primary') ~ ' w-100'
+                        }) }}
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

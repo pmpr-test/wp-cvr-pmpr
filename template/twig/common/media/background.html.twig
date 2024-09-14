@@ -1,0 +1,30 @@
+{% if attachment is defined
+    and attachment is not empty %}
+
+    {% set attachment_url = wp_get_attachment_url(attachment) %}
+    {% if is_image(attachment) %}
+
+        {% set image_url = attachment_url %}
+    {% elseif is_video(attachment) %}
+
+        {% set video_url = attachment_url %}
+    {% endif %}
+{% endif %}
+
+{% if image_url is defined
+    and image_url is not empty %}
+
+    <div class="center-cover {{ container_class|raw }}" style="background-image: url({{ image_url|raw }})">
+        {{ block('body') }}
+    </div>
+{% elseif video_url is defined
+    and video_url is not empty %}
+
+    <div class="position-relative bg-overlay dark-50 {{ container_class|raw }}">
+        <video autoplay muted loop class="center-video video-overlay position-absolute {{ video_class|raw }}">
+            <source src="{{ video_url|raw }}" type="{{ get_mime_type(attachment)|raw }}">
+            Your browser does not support HTML5 video.
+        </video>
+        {{ block('body') }}
+    </div>
+{% endif %}

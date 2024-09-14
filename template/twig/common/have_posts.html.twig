@@ -1,0 +1,14 @@
+{% set posts = have_posts() %}
+
+{% if posts is not empty %}
+    {% for item in posts %}
+        {% block before_loop_item %}{% endblock %}
+
+        {% include get_template('content/', _self, _current_template_name) with {
+            loop: loop
+        } %}
+        {% block after_loop_item %}{% endblock %}
+    {% endfor %}
+{% else %}
+    {% include get_template('empty', _self) %}
+{% endif %}

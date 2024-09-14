@@ -1,0 +1,20 @@
+{% if data is not empty %}
+
+    <section class="{{ section_class|default('py-8')|esc_attr }}">
+        <div class="container">
+            {% if data.title is not empty %}
+                <div class="mb-5">
+                    <h2 class="h3">{{ data.title|raw }}</h2>
+                    {% if data.description is not empty %}
+                        {{ wpautop(data.description)|raw }}
+                    {% endif %}
+                </div>
+            {% else %}
+                <h2 class="sr-only">Section</h2>
+            {% endif %}
+
+            {% block content %}{% endblock %}
+        </div>
+    </section>
+
+{% endif %}

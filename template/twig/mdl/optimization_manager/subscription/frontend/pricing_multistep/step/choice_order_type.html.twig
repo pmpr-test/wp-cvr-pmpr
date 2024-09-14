@@ -1,0 +1,17 @@
+<div class="row gutter-2 justify-content-center selectables">
+    {% set columns = 'col-12 col-sm-6 col-md-4 col-lg-3' %}
+    {% for name, order_type in order_types %}
+        <div class="{{ columns|esc_attr }}{{ margin_bottom(loop, columns, 5)|esc_attr }}">
+            <article class="order-type selectable" data-name="{{ name|esc_attr }}">
+                <div class="card border-1 border-gray-500">
+                    <div class="card-header bg-gray-200 text-gray-700">
+                        {{ render_if_has_content('h2', {class: 'text-center h5 m-0'}, order_type.title) }}
+                    </div>
+                    <div class="card-body">
+                        {{ render_icon(order_type.icon, {class: 'icon-5x mx-auto icon-gray'}) }}
+                    </div>
+                </div>
+            </article>
+        </div>
+    {% endfor %}
+</div>

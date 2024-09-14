@@ -1,0 +1,22 @@
+<div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-8">
+        {% include get_template('./title_and_description', _self) with {
+            centered: 1
+        } %}
+    </div>
+</div>
+
+<div class="row">
+    {% set columns = 'col-12 col-lg-4 d-flex' %}
+    {% for item in items %}
+        <div class="{{ columns|esc_attr }}{{ margin_bottom(loop, columns, 5)|esc_attr }}">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    {{ render_icon(item.icon, {class: 'icon-4x mx-auto'})|raw }}
+                    {{ render_if_has_content('h3', {class: 'h5 mt-5 mb-2'}, item.title) }}
+                    {{ render_if_has_content('div', {class: 'font-15 no-margin'}, wpautop(item.text)) }}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

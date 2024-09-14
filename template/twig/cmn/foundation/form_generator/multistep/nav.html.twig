@@ -1,0 +1,22 @@
+{{ render_frontend_spinner({
+    type: 'loader',
+    show: 0,
+    overlay: 1,
+}) }}
+<nav class="{{ class_prefix }}nav" data-total-steps="{{ steps|length }}">
+    {% for step in steps %}
+        {% set step_id = step|call('getId') %}
+        <div class="{{ class_prefix }}step" id="step_nav_{{ step_id|esc_attr }}"
+             data-step="{{ step|call('getNumber')|esc_attr }}" data-name="{{ step_id|esc_attr }}"
+             data-state="{% if loop.first %}current{% else %}pending{% endif %}"
+             data-target="#step_content_{{ step_id|esc_attr }}">
+            <div class="{{ class_prefix }}step-wrapper">
+                <div class="position-relative w-100">
+                    <div class="{{ class_prefix }}step-line my-6"></div>
+                    {{ render_icon(step|call('getIcon'), {class: 'centered-absolute icon-white z-index-2 mx-auto ' ~ class_prefix ~ 'step-icon'}, 1) }}
+                </div>
+                <span class="{{ class_prefix }}step-label mt-2">{{ step|call('getLabel')|raw }}</span>
+            </div>
+        </div>
+    {% endfor %}
+</nav>

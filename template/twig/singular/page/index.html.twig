@@ -1,0 +1,9 @@
+{% extends get_template('base', _self) %}
+
+{% block main %}
+    {% set content = include(get_cover_template('common/have_posts')) %}
+    {% set content = apply_filters('page_content_filter', content, post, post_type) %}
+    {{ content|raw }}
+    {{ do_action('single_after_content', post) }}
+    {{ pmpr_do_action('single_after_content', post) }}
+{% endblock %}

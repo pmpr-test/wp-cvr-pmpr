@@ -1,0 +1,27 @@
+{% include get_template('./title_and_description', _self) %}
+
+<div class="row mt-5">
+    {{ _self.article(right_image, right_title) }}
+    {{ _self.article(left_image, left_title) }}
+</div>
+
+{% if action is not empty %}
+    <div class="text-center mt-5">
+        {% include get_cover_template('common/call_to_action') with {
+            text: action.title,
+            permalink: action.permalink
+        } %}
+    </div>
+{% endif %}
+
+{% macro article(image, title) %}
+    <article class="col-12 col-md-6 mb-5">
+        {% embed get_template('card', _self) %}
+            {% block content %}
+                {{ render_if_has_content('h3', {class: 'h5 mb-5 text-center'}, title) }}
+                {{ wp_get_attachment_image(image, [550, 400], {class: 'w-100 d-block mx-auto'})|raw }}
+            {% endblock %}
+        {% endembed %}
+    </article>
+{% endmacro %}
+

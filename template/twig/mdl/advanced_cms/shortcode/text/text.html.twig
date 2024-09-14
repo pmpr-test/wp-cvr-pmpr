@@ -1,0 +1,9 @@
+<div class="pb-3 text-{{ align ?? 'left' }}{% if custom_class is defined and custom_class is not empty %} {{ custom_class|esc_attr }}{% endif %}">
+    {% if title is defined and title is not empty %}
+        <h2 class="h3{% if text is not defined or text is empty %} mb-0{% endif %}">{{ title|raw }}</h2>
+    {% endif %}
+    {% if text is defined and text is not empty %}
+        <p class="paragraph {{ text_class|default('mb-0') }}{% if justify is defined and justify %} text-justify{% else %} text-{{ align ?? 'left' }}{% endif %}">{{ text|raw }}</p>
+    {% endif %}
+</div>
+

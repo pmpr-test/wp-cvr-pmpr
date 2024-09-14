@@ -1,0 +1,7 @@
+<div class="input-group-{{ prepend ? 'prepend' : 'append' }}">
+    <button class="btn btn-sm btn-gray-100 btn-{{ increase ? 'increase' : 'decrease' }}" type="button">
+        <span class="font-20">
+            {{ get_icon(symbol, {class: 'icon-xs icon-primary'}, 1)|raw }}
+        </span>
+    </button>
+</div>

@@ -1,0 +1,8 @@
+{% if fields is defined and fields is not empty %}
+    <div class="d-none rating-feedback my-3">
+        <p class="font-18 text-left mb-0">{{ question|raw }}</p>
+        {% for field in fields %}
+            {{ field|call('render')|raw }}
+        {% endfor %}
+    </div>
+{% endif %}

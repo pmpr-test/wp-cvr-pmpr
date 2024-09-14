@@ -1,0 +1,11 @@
+<div class="row">
+    <div class="col-12 col-lg-6 order-3 order-lg-1 my-auto">
+        {% include get_template('./title_and_description', _self) with {
+            title_attrs: {class: 'h1 mb-5'},
+        } %}
+        {% include get_template('./actions', _self) %}
+    </div>
+    <div class="col-12 col-lg-6 order-2 mb-5 mb-lg-0">
+        {{ wp_get_attachment_image(image, 'full', {class: 'img-fluid'})|raw }}
+    </div>
+</div>

@@ -1,0 +1,40 @@
+{% extends get_cover_template('main') %}
+
+{% block main %}
+
+    {% set sections = {
+        pro_wp_introduce: {},
+        pro_wp_question_and_answer: {},
+        pro_wp_stats: {},
+        pro_wp_what_we_do: {},
+        pro_wp_why_us: {},
+        pro_wp_demo: {},
+        pro_wp_our_difference: {},
+        pro_wp_components: {}
+    } %}
+
+    {% set rendered = 0 %}
+
+    {% for section, config in sections %}
+
+        {% set options = get_cover_option(section, config) %}
+        {% if options is not empty %}
+
+            <section class="pro-wp-section bg-cover py-10 bg-white" id="section_{{ section|esc_attr }}"
+                    {% if options.background is not empty %} style="background: url('{{ wp_get_attachment_url(options.background)|esc_attr }}')" {% endif %}>
+                {% if options.has_container %}
+                    <div class="container">
+                {% endif %}
+                    {% include get_template('./pro-wp/section_' ~ loop.index, _self) with options %}
+                {% if options.has_container %}
+                    </div>
+                {% endif %}
+            </section>
+            {% set rendered = rendered + 1 %}
+
+        {% endif %}
+
+    {% endfor %}
+
+{% endblock %}
+

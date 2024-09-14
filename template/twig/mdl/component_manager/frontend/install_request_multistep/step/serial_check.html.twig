@@ -1,0 +1,12 @@
+<div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-6 pt-4">
+        {{ fields|raw }}
+        {{ render_frontend_spinner({
+            type: 'loader',
+            show: 0,
+            overlay: 1,
+        }) }}
+        <div class="serial-information mt-4"></div>
+    </div>
+</div>
+

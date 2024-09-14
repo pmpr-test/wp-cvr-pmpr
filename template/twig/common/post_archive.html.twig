@@ -1,0 +1,44 @@
+{% extends get_template('../container_sidebar', _self) %}
+
+{% block sidebar %}
+    {{ parent() }}
+    {{ dynamic_sidebar('archive-sidebar') }}
+{% endblock %}
+
+{% block main %}
+    <main>
+        {% include get_template('page_header', _self) %}
+        {{ do_action('render_blog_loop') }}
+        {% set posts = have_posts() %}
+
+        {% if posts is not empty %}
+
+            <section class="my-3">
+                <h2 class="sr-only">{{ __('Blog Articles', domain) }}</h2>
+                <div class="row">
+                    {% set items = [posts[0:1], posts[1:5], posts[6:]] %}
+                    {% for index, item in items %}
+                        {{ do_action('render_cards', item, {
+                            class: '',
+                            index: index,
+                            layout: index == 0 and not is_paged() ? 'horizontal_cover_text' : 'horizontal_right_image_title',
+                            column: index <= 1 ? 'col-md-12' : 'col-md-12 col-lg-6',
+                            has_meta: index < 2,
+                            card_class: index == 0 and not is_paged() ? 'mb-5' : 'mb-1',
+                            heading_class: 'limit-line ' ~  (index == 1 or (index == 0 and is_paged()) ? 'h6 max-line-1' : 'font-weight-normal max-line-2 font-14'),
+                        }) }}
+                    {% endfor %}
+                </div>
+                {% include get_template('../common/pagination', _self) %}
+            </section>
+        {% else %}
+            {% include get_template('../common/empty', _self) %}
+        {% endif %}
+    </main>
+{% endblock %}
+
+{% block after_container %}
+    {% include get_template('./widget/after_archive', _self) with {
+        sidebar_name: 'after-archive-container'
+    } %}
+{% endblock %}

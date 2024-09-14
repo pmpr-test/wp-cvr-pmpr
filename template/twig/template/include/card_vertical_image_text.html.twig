@@ -1,0 +1,42 @@
+{% extends get_template('base', _self) %}
+{% set has_description = has_description|default(1) %}
+{% block content %}
+
+    {% set justify = justify|default(1) %}
+    {% if has_grid is defined and has_grid %}
+        {% set columns = 'col-12 ' ~ column|default('col-md-4') %}
+        <div class="d-flex {{ columns }} {{ card_bottom_margin(loop, columns, margin_bottom|default(6)) }}"{% if item.ID is defined and item.ID is not empty %} id="{{ item.ID }}"{% endif %}>
+    {% endif %}
+    <div class="{{ card_class ?? '' }}">
+        <a class="card-img-top" href="{{ render_post_data('url', item) }}">
+            {% if class is not defined or class is empty %}
+                {% set class = 'w-' ~ image_width|default(100) ~ ' m-auto card-img-top' %}
+            {% endif %}
+            {{ render_post_data('image', item)|raw }}
+        </a>
+{#        {% include get_include_template('shape_' ~ (shape is not empty ? shape : 'one')) %}#}
+        <div class="card-body{% if align is defined and align is not empty %} text-{{ align }}{% endif %}">
+            {% set title = render_post_data('title', item) %}
+            {% if title is not empty %}
+                <a href="{{ render_post_data('url', item)|raw }}" class="card-link">
+                    <h3 class="text-gray-900{% if has_description %} mb-3 h6 limit-line max-line-1{% else %} mb-0 lh-3 h5{% endif %}{% if title_hover is defined %} hover-{{ title_hover }}{% endif %}">
+                        {{ title|raw }}
+                    </h3>
+                </a>
+            {% endif %}
+
+            {% if has_description %}
+                {% set description = render_post_data('desc', item) %}
+                {% if description is not empty %}
+                    <p class="mb-0 text-gray-600 font-15{% if justify is defined and justify %} text-justify{% endif %}">
+                        {{ description|raw }}
+                    </p>
+                {% endif %}
+            {% endif %}
+        </div>
+        {% include get_template('card_footer', _self) %}
+    </div>
+    {% if has_grid is defined and has_grid %}
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,32 @@
+{% set text_color = text_color|default('gray-800') %}
+
+{% set content %}
+
+    {% set array = value|split('', 6) %}
+    {% set content_value = '' %}
+    {% for val in array %}
+        {% set content_value = content_value ~ '<span>' ~ val ~ '</span>' %}
+    {% endfor %}
+
+    <div class="{% if not single_show %}d-flex justify-content-between{% else %}font-16 text-justify{% endif %}">
+        {% if not single_show %}
+            {{ render_icon(item.icon, {class: 'my-auto icon-centered icon-' ~ icon_size|default('lg') ~  ' icon-' ~ icon_color|default('primary')}) }}
+        {% endif %}
+        <span class="mt-auto {% if not single_show %}ml-2 font-14{% endif %}">
+            {{ content_value|raw }}
+        </span>
+    </div>
+{% endset %}
+
+{% if item.type is same as ('phone') %}
+    {% set value = value|replace({'_': '', '-': ''}) %}
+    {% set prefix = 'tel' %}
+    <a href="{{ prefix }}:{{ value }}" rel="nofollow" aria-label="{{ item.title|esc_attr }}"
+       class="lh-md hover-{{ text_color }} text-{{ text_color }}">
+        {{ content|raw }}
+    </a>
+
+{% else %}
+    {{ content|raw }}
+{% endif %}
+

@@ -1,0 +1,6 @@
+<div class="mb-4">
+    {% set attributes = attributes|add('class', 'mb-2') %}
+    {{ render_if_has_content('strong', attributes, title) }}
+    {% include get_template('../description', _self) %}
+</div>
+

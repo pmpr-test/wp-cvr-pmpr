@@ -1,0 +1,15 @@
+<div class="card text-white bg-{{ background|default('primary') }} text-center mb-4">
+    <div class="card-body">
+        <div class="card-title h3">{{ title|raw }}</div>
+        <div class="card-text">
+            {% if description is not empty %}
+                {{ wpautop(description)|raw }}
+            {% endif %}
+            {% if permalink is defined and permalink is not empty %}
+                <a href="{{ permalink|esc_url }}" target="_blank" title="{{ action_text|esc_attr }}"
+                   class="my-3 font-weight-bold btn btn-{% if outline %}outline-{% endif %}{{ color|default('light') }}"
+                   rel="noopener">{{ action_text|raw }}</a>
+            {% endif %}
+        </div>
+    </div>
+</div>

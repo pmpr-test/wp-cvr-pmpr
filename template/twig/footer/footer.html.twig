@@ -1,0 +1,37 @@
+{% if pmpr_apply_filters('has_footer', has_footer|default(1)) %}
+
+    {% set has_footer_1 = is_active_sidebar('footer-1') %}
+    {% set has_footer_2 = is_active_sidebar('footer-2') %}
+    {% set has_footer_3 = is_active_sidebar('footer-3') %}
+    {% set has_footer_4 = is_active_sidebar('footer-4') %}
+
+    {% if has_footer_1 or has_footer_2
+        or has_footer_3 or has_footer_4 %}
+        <footer id="site_footer" class="py-6 py-md-7 py-lg-8 bg-gray-200">
+            <div class="container">
+                <div class="row">
+                    {% set segments = 4 %}
+                    {% for i in 1..segments %}
+                        {% if is_active_sidebar('footer-' ~ i) %}
+                            {% set class = 'col-12 col-sm-6 col-xl-3' %}
+                            {% if i > 1 and i < 4 %}
+                                {% set class = class ~ ' px-xl-8' %}
+                            {% endif %}
+                            {% if not loop.last %}
+                                {% set class = class ~ ' mb-8 mb-xl-0' %}
+                            {% endif %}
+                            <div class="{{ class|esc_attr }}">
+                                {{ dynamic_sidebar('footer-' ~ i) }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </footer>
+    {% endif %}
+
+{% endif %}
+{{ wp_footer()|raw }}
+</body>
+</html>
+

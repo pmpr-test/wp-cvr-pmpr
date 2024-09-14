@@ -1,0 +1,7 @@
+{% if column is not defined or not is_number(column) or column < 1 %}
+    {% set column = 3 %}
+{% endif %}
+{% set columns = "col-12 col-md-6 col-lg-" ~ (12 / column) %}
+<div class="d-flex {{ columns }} {{ card_bottom_margin(loop, columns) }}">
+    {% block grid_content %}{% endblock %}
+</div>

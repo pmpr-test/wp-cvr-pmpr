@@ -1,0 +1,14 @@
+<div class="text-white">
+    {% include get_template('./title_and_description', _self) with {
+        centered: 1
+    } %}
+    <div class="d-flex flex-column flex-lg-row justify-content-around">
+        {% for item in items %}
+            <div class="d-flex flex-column{% if not loop.last %} mb-8 mb-lg-0{% endif %}">
+                {{ render_icon(item.icon, {class: 'icon-white icon-4x mx-auto mb-4'}) }}
+                <h3 class="h5 mx-auto mb-0">{{ item.title|raw }}</h3>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+

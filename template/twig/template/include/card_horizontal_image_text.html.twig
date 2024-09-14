@@ -1,0 +1,45 @@
+{% extends get_template('base', _self) %}
+{% block content %}
+    {% set is_left = is_left|default(1) %}
+    <div class="{{ card_class ?? '' }} card-row shadow mb-3">
+        <div class="row no-gutters">
+            {% if  item.icon is defined or icon is defined
+                and not (item.image is defined or image is defined) %}
+                <div class="col-12 col-md-6 order-2">
+                    {{ do_action('render_html_icon_action', item.icon|default(icon|default('')), {class: 'icon-' ~ icon_color|default('')}) }}
+                </div>
+            {% else %}
+                {% if class is not defined or class is empty %}
+                    {% set class = 'img-fluid w-100 h-100 ' ~ (is_left ? 'card-img-right' : 'card-img-left') %}
+                {% endif %}
+                {% set image_url = render_post_data('image_url', item) %}
+                <div class="col-12 col-lg-6 order-2{% if image_url is not empty %} bg-cover card-img-{{ is_left ? "left" : "right" }}{% endif %}"
+                        {% if image_url is not empty %} style="background-image: url({{ image_url|esc_attr }})"{% endif %}>
+                    {{ render_post_data('image', item, {
+                        size: 'medium',
+                        attrs: {
+                            class: class ~ ' d-block d-lg-none'
+                        }
+                    }) }}
+                </div>
+            {% endif %}
+            <div class="col-12 col-lg-6 order-{{ is_left ? 1 : 3 }} card-img-{{ is_left ? "left" : "right" }}">
+                <div class="card-body">
+                    {% set title = render_post_data('title', item) %}
+                    {% if title is not empty %}
+                        <a href="{{ render_post_data('url', item)|raw }}"
+                           class="text-dark hover-primary">
+                            <h3 class="h4">{{ title|raw }}</h3>
+                        </a>
+                    {% endif %}
+
+                    {% set description = render_post_data('desc', item) %}
+                    {% if description is not empty %}
+                        <p class="mb-3 text-muted text-justify">{{ description|raw }}</p>
+                    {% endif %}
+                </div>
+                {% extends get_template('card_footer', _self) %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

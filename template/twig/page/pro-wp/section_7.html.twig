@@ -1,0 +1,22 @@
+<div class="row">
+    <div class="col-12 col-lg-5 order-1 order-lg-3 my-auto">
+        {% include get_template('./title_and_description', _self) %}
+    </div>
+    <div class="col-12 col-lg-7 order-2 mt-5 mt-lg-0">
+        <div class="row">
+            {% for items in chunk %}
+                <div class="col-12 col-lg-6 mb-5 mb-lg-0{% if loop.last %} mt-0 mt-lg-6{% endif %}">
+                    {% for item in items %}
+                        <div class="card shadow-sm mb-6">
+                            <div class="card-body d-flex flex-column text-center">
+                                {{ render_icon(item.icon, {class: 'icon-4x mx-auto'})|raw }}
+                                {{ render_if_has_content('h3', {class: 'h5 mt-5 mb-2'}, item.title) }}
+                                {{ render_if_has_content('div', {class: 'font-14 no-margin'}, wpautop(item.text)) }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

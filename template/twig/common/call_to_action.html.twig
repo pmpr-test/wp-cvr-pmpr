@@ -1,0 +1,26 @@
+{% set attrs = attrs|default({}) %}
+
+{% if button|default(1) %}
+
+    {% set py = py|default(2) %}
+    {% set px = px|default(5) %}
+    {% set size = size|default('md') %}
+    {% set color = color|default('primary') %}
+    {% set attrs = attrs|add('class', 'btn btn-' ~ size ~ ' btn-' ~ color ~ ' px-' ~ px ~ ' py-' ~ py) %}
+{% else %}
+
+    {% set attrs = attrs|add('class', 'text-decoration-none') %}
+{% endif %}
+
+{% set attrs = attrs|add('title', title|default(text)) %}
+{% set attrs = attrs|add('href', permalink|default('#')) %}
+
+{% if external %}
+    {% set attrs = attrs|add('rel', 'nofollow noopener noreferrer') %}
+{% endif %}
+
+{% if blank %}
+    {% set attrs = attrs|add('target', '_blank') %}
+{% endif %}
+
+{{ render_if_has_content('a', attrs, text) }}

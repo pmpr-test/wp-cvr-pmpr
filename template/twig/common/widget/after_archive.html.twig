@@ -1,0 +1,10 @@
+{% if is_active_sidebar(sidebar_name) %}
+    <section>
+        <h2 class="sr-only">{{ __('Other Posts', domain) }}</h2>
+        <div class="container my-5">
+            <div class="row">
+                {{ dynamic_sidebar(sidebar_name) }}
+            </div>
+        </div>
+    </section>
+{% endif %}

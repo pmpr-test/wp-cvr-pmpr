@@ -1,0 +1,12 @@
+<a class="card-header bg-transparent p-3 card-link dropdown-item" href="{{ profile.url|esc_attr }}">
+    <div class="d-flex">
+        <div class="mr-2">
+            {{ render_user_data('avatar', profile.user.ID) }}
+        </div>
+        <div class="d-flex flex-column my-auto">
+            <span class="h6 mb-1">{{ profile.user.display_name|raw }}</span>
+            <small class="text-info">{{ profile.see_profile|raw }}</small>
+        </div>
+    </div>
+</a>
+

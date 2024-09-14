@@ -1,0 +1,9 @@
+<div class="rating-inputs d-flex justify-content-center flex-row-reverse my-3">
+    {% for index in 5..1 %}
+        <input id="{{ name ~ index|esc_attr }}" name="{{ name|esc_attr }}" type="radio" value="{{ index }}">
+        <label for="{{ name ~ index|esc_attr }}" class="rating-label font-weight-bold p-2 lh-05"
+               data-value="{{ index|esc_attr }}">{% if show_number %}{{ index|number }}{% endif %}</label>
+
+    {% endfor %}
+</div>
+

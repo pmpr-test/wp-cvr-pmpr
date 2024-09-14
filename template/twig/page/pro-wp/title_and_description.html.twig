@@ -1,0 +1,5 @@
+<header{% if centered %} class="text-center mx-auto" {% endif %}>
+    {{ render_if_has_content('h2', title_attrs|default({class: 'h2 mb-3'}), title) }}
+    {{ render_if_has_content('div', description_attrs|default({class: ''}), wpautop(description)) }}
+</header>
+
