@@ -1,7 +1,7 @@
 <?php
 /*   _______________________________________
     |  Obfuscated by PMPR - Php Obfuscator  |
-    |             66ef509c6b563             |
+    |             6705174dabba2             |
     |_______________________________________|
 */
- namespace Pmpr\Cover\Pmpr\Component; use Pmpr\Cover\Pmpr\Component\Module\Module; use Pmpr\Cover\Pmpr\Container; class Component extends Container { public function mameiwsayuyquoeq() { Module::symcgieuakksimmu(); } }
+ namespace Pmpr\Cover\Pmpr\Component; use Pmpr\Cover\Pmpr\Component\Module\Contact; use Pmpr\Cover\Pmpr\Container; class Component extends Container { public function mameiwsayuyquoeq() { Contact::symcgieuakksimmu(); } }
