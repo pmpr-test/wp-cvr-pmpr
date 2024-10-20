@@ -10,7 +10,7 @@
             <div class="py-5"></div>
             {{ the_content()|raw }}
             <div class="text-center">
-                <a href="{{ home_url()|raw }}" class="card-link">{{ back_to|raw }}</a>
+                <a href="{{ home_url()|esc_url }}" class="card-link">{{ back_to|raw }}</a>
             </div>
         </div>
     </section>
