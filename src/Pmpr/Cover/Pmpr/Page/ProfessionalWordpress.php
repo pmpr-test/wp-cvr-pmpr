@@ -1,7 +1,7 @@
 <?php
 /*   _______________________________________
     |  Obfuscated by PMPR - Php Obfuscator  |
-    |             68dda3c233349             |
+    |             68e5803978c8f             |
     |_______________________________________|
 */
  namespace Pmpr\Cover\Pmpr\Page; use Pmpr\Cover\Pmpr\Setting; use Pmpr\Common\Foundation\Frontend\Page; class ProfessionalWordpress extends Page { public function qiccuiwooiquycsg() { $this->ekgmmugauoasqwyc()->wegcaymyqqoyewmw('professional-wordpress')->gswweykyogmsyawy(__('Professional Wordpress', PR__CVR__PMPR))->wmsaakuicamguoam($this->weysguygiseoukqw(Setting::qimsgiaecyaykeyu)); parent::qiccuiwooiquycsg(); } }

@@ -3,8 +3,8 @@
 {% block content %}
     {% set has_parent = has_parent|default(1) %}
     {% if has_parent %}
-        {% set columns = "col-12 " ~ column|default('col-md-4') %}
-        <div class="{{ columns|esc_attr }} {{ card_bottom_margin(loop, columns, margin_bottom|default(6)) }}">
+        {% set columns = columns|default({'': 12, md: 4}) %}
+        <div class="{{ prepare_columns(loop, columns, margin_bottom|default(6)) }}">
     {% endif %}
     <a href="" class="{{ card_class }}">
         <div class="card-body text-center {{ card_body_class|default('') }}">

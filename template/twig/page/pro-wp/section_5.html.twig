@@ -10,9 +10,8 @@
     </div>
     <div class="col-12 col-lg-7 order-2 mb-5 mb-lg-0">
         <div class="row">
-            {% set columns = 'col-12 col-lg-6' %}
             {% for feature in features %}
-                <div class="{{ columns|esc_attr }}{{ margin_bottom(loop, columns, 5)|esc_attr }} position-relative">
+                <div class="{{ prepare_columns(loop, {'': 12, lg: 6}, 5) }} position-relative">
                     {{ render_icon(feature.icon, {class: 'p-4 icon-5x bg-gray-200 rounded-circle position-absolute'})|raw }}
                     <div class="no-margin pl-11 d-table-cell">
                         <h3 class="h5">{{ feature.title|raw }}</h3>

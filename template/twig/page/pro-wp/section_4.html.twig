@@ -7,9 +7,8 @@
 </div>
 
 <div class="row">
-    {% set columns = 'col-12 col-lg-4 d-flex' %}
     {% for item in items %}
-        <div class="{{ columns|esc_attr }}{{ margin_bottom(loop, columns, 5)|esc_attr }}">
+        <div class="{{ prepare_columns(loop, {'': 12, lg: 4}, 5) }} d-flex">
             <div class="card shadow-sm">
                 <div class="card-body text-center">
                     {{ render_icon(item.icon, {class: 'icon-4x mx-auto'})|raw }}

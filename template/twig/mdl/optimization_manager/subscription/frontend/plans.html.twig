@@ -1,8 +1,7 @@
 {% if plans is not empty %}
     <div class="row gutter-2">
-        {% set columns = 'col-12 col-md-6 col-lg-3' %}
         {% for plan in plans %}
-            <div class="{{ columns|esc_attr }}{{ margin_bottom(loop, columns, 5)|esc_attr }} d-flex">
+            <div class="{{ prepare_columns(loop, {'': 12, 'md': 6, 'lg': 3}, 5) }} d-flex">
                 {% include get_template('./plan', _self) with {plan: plan} %}
             </div>
         {% endfor %}
