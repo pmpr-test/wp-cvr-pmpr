@@ -4,8 +4,7 @@
 
     {% set justify = justify|default(1) %}
     {% if has_grid is defined and has_grid %}
-        {% set columns = 'col-12 ' ~ column|default('col-md-4') %}
-        <div class="d-flex {{ columns }} {{ card_bottom_margin(loop, columns, margin_bottom|default(6)) }}"{% if item.ID is defined and item.ID is not empty %} id="{{ item.ID }}"{% endif %}>
+        <div class="{{ prepare_columns(loop, columns|default({'md': 4}), margin_bottom|default(6)) }} d-flex"{% if item.ID is defined and item.ID is not empty %} id="{{ item.ID }}"{% endif %}>
     {% endif %}
     <div class="{{ card_class ?? '' }}">
         <a class="card-img-top" href="{{ render_post_data('url', item) }}">

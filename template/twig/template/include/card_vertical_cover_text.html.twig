@@ -3,7 +3,7 @@
     {% set justify = justify|default(1) %}
     {% set columns = "col-12 " ~ column|default('col-md-4') %}
 
-    <div class="d-flex {{ columns }} {{ card_bottom_margin(loop, columns, margin_bottom|default('6')) }}"{% if item.ID is defined and item.ID is not empty %} id="{{ item.ID }}"{% endif %}>
+    <div class="{{ prepare_columns(loop, {'': 12, 'md': 2, 'lg': (12 / column|default(4))}, margin_bottom|default(6)) }} d-flex"{% if item.ID is defined and item.ID is not empty %} id="{{ item.ID }}"{% endif %}>
         <div class="{{ card_class ?? '' }} mb-6 mb-lg-0 pt-14 bg-cover"
              style="{{ render_post_data('image_url') }}">
             <a class="card-body mt-auto{% if align is defined and align is not empty %} text-{{ align }}{% endif %}"

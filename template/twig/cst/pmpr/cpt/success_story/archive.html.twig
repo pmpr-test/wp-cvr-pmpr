@@ -31,7 +31,7 @@
                         }) %}
 
                         {% set columns = 'col-12 col-md-6 col-lg-4' %}
-                        <div class="{{ columns }}{{ card_bottom_margin(loop, columns) }}">
+                        <div class="{{ prepare_columns(loop, {'': 12, 'md': 6, 'lg': 4}, 5) }}">
                             <div class="card">
                                 <div class="card-body d-flex flex-column justify-content-between text-center">
                                     {{ info.avatar|raw }}

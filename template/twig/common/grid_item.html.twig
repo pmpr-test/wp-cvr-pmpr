@@ -2,6 +2,6 @@
     {% set column = 3 %}
 {% endif %}
 {% set columns = "col-12 col-md-6 col-lg-" ~ (12 / column) %}
-<div class="d-flex {{ columns }} {{ card_bottom_margin(loop, columns) }}">
+<div class="{{ prepare_columns(loop, {'': 12, 'md': 6, 'lg': (12 / column)}, 5) }} d-flex">
     {% block grid_content %}{% endblock %}
 </div>

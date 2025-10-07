@@ -22,7 +22,7 @@
                             class: '',
                             index: index,
                             layout: index == 0 and not is_paged() ? 'horizontal_cover_text' : 'horizontal_right_image_title',
-                            column: index <= 1 ? 'col-md-12' : 'col-md-12 col-lg-6',
+                            columns: index <= 1 ? {'': 12} : {'': 12, 'md': 6},
                             has_meta: index < 2,
                             card_class: index == 0 and not is_paged() ? 'mb-5' : 'mb-1',
                             heading_class: 'limit-line ' ~  (index == 1 or (index == 0 and is_paged()) ? 'h6 max-line-1' : 'font-weight-normal max-line-2 font-14'),

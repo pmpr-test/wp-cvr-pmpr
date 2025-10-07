@@ -2,10 +2,9 @@
 
     {% include get_template('template_header', _self) %}
     <div class="row my-5">
-        {% set columns = "col-12 col-md-2 col-lg-" ~ (12 / column|default(4)) %}
         {% for item in items %}
             {% set url = render_post_data('url', item) %}
-            <div class="d-flex {{ columns }} {{ card_bottom_margin(loop, columns) }}">
+            <div class="{{ prepare_columns(loop, {'': 12, 'md': 2, 'lg': (12 / column|default(4))}, 5) }} d-flex">
                 {% embed get_template('card', _self) with {
                     attrs: {}
                 } %}
