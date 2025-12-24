@@ -1,11 +1,13 @@
 {% if items is not empty %}
     {% embed get_cover_template('common/carousel/swiper/single_column') with {
         carousels: items,
+        autoplay_dealy: 8000,
+        container_class: 'frontend-carousel'
     } %}
         {% block carousel %}
             {% embed get_cover_template('common/media/background') with {
                 image_url: wp_get_attachment_image_url(carousel, 'full'),
-                container_class: 'carousel-item position-relative bg-size-cover bg-no-repeat',
+                container_class: 'carousel-item position-relative bg-size-cover bg-no-repeat min-h-450px rounded',
             } %}
                 {% block body %}{% endblock %}
             {% endembed %}
